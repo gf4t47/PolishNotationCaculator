@@ -13,25 +13,25 @@ def test_unary(expr, expected, binary_op):
     assert expected == evaluate(expr, binary_op)
 
 
-@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '+'))
+@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '+', None))
 @pytest.mark.parametrize("binary_op", [True, False])
 def test_binary_add(expr, expected, binary_op):
     assert expected == evaluate(expr, binary_op)
 
 
-@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '-'))
+@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '-', None))
 @pytest.mark.parametrize("binary_op", [True, False])
 def test_binary_sub(expr, expected, binary_op):
     assert expected == evaluate(expr, binary_op)
 
 
-@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '*'))
+@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '*', None))
 @pytest.mark.parametrize("binary_op", [True, False])
 def test_binary_mul(expr, expected, binary_op):
     assert expected == evaluate(expr, binary_op)
 
 
-@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '/'))
+@pytest.mark.parametrize("expr, expected", binary_generator(left_data, right_data, '/', None))
 @pytest.mark.parametrize("binary_op", [True, False])
 def test_binary_div(expr, expected, binary_op):
     assert expected == evaluate(expr, binary_op)
