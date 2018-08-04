@@ -3,3 +3,7 @@
 
 /test/**/.pytest_cache/
 /.idea/workspace\.xml
+
+\.idea/misc\.xml
+
+\.idea/PolishNotationCaculator\.iml
