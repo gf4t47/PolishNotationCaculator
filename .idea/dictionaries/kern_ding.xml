@@ -2,6 +2,7 @@
   <dictionary name="kern.ding">
     <words>
       <w>llist</w>
+      <w>peekable</w>
       <w>rlist</w>
       <w>testee</w>
     </words>
