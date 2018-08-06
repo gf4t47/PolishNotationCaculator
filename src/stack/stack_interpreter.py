@@ -21,13 +21,13 @@ class StackInterpreter:
         self.number_stack = []
         self.binary_op = binary_op
 
-    def binary_op_calc(self, char):
+    def __binary_op_calc(self, char):
         left = self.number_stack.pop()
         right = self.number_stack.pop()
         # logging.debug(f'{char} {left.value} {right.value}')
         return op_calc_map[char](left.value, right.value)
 
-    def free_op_calc(self, char):
+    def __free_op_calc(self, char):
         operands = []
 
         while len(self.number_stack) > 0:
@@ -40,11 +40,11 @@ class StackInterpreter:
         # logging.debug(f'{char} {operands}')
         return functools.reduce(op_calc_map[char], operands)
 
-    def calc(self, char):
+    def _calc(self, char):
         capability = len(self.number_stack)
         if capability < 2:
             raise BufferError(f'Not enough operands, length = {capability}')
-        return self.binary_op_calc(char) if self.binary_op else self.free_op_calc(char)
+        return self.__binary_op_calc(char) if self.binary_op else self.__free_op_calc(char)
 
     def evaluate(self, expression: str) -> int:
         """
@@ -59,7 +59,7 @@ class StackInterpreter:
             if cur.isspace() or cur == '(':  # ignore character
                 index -= 1
             elif cur in op_calc_map:
-                ret = self.calc(cur)
+                ret = self._calc(cur)
                 self.number_stack.append(NumberToken(ret))
                 index -= 1
             elif cur.isdigit():
