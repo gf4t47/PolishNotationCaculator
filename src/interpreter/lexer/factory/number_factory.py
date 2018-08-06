@@ -9,7 +9,7 @@ def is_digit(ch: str)-> bool:
 
 
 class NumberFactory(TokenFactory):
-    def integer(self)-> Tuple[int, Optional[Token]]:
+    def _integer(self)-> Tuple[int, Optional[Token]]:
         result = ''
         step = 0
 
@@ -22,4 +22,4 @@ class NumberFactory(TokenFactory):
         return (step, Token(TokenType.NUMBER, int(result))) if step > 0 else (0, None)
 
     def match(self) -> Tuple[int, Optional[Token]]:
-        return self.integer()
+        return self._integer()

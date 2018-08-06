@@ -6,11 +6,11 @@ from src.interpreter.lexer.token import Token
 
 class TokenFactory:
     def __init__(self, stream: PeekableStream):
-        self.stream = stream
+        self.__stream = stream
 
     @property
     def _peekable_stream(self) -> PeekableStream:
-        return self.stream
+        return self.__stream
 
     def query(self, step: int) -> Tuple[bool, str]:
         return self._peekable_stream.peek(step)
