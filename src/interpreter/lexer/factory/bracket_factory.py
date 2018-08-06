@@ -1,7 +1,7 @@
 from typing import Tuple, Optional
 
-from interpreter.lexer.factory.token_factory import TokenFactory
-from interpreter.lexer.token import Token, TokenType
+from src.interpreter.lexer.factory.token_factory import TokenFactory
+from src.interpreter.lexer.token import Token, TokenType
 
 brackets = {
     '(': Token(TokenType.BRACKET, True),

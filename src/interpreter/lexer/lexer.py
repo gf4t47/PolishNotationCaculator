@@ -1,8 +1,8 @@
-from interpreter.input.string_stream import MovableStream
-from interpreter.lexer.factory.bracket_factory import BracketFactory
-from interpreter.lexer.factory.number_factory import NumberFactory
-from interpreter.lexer.factory.operator_factory import OperatorFactory
-from interpreter.lexer.token import Token, TokenType
+from src.interpreter.input.string_stream import MovableStream
+from src.interpreter.lexer.factory.bracket_factory import BracketFactory
+from src.interpreter.lexer.factory.number_factory import NumberFactory
+from src.interpreter.lexer.factory.operator_factory import OperatorFactory
+from src.interpreter.lexer.token import TokenType, Token
 
 
 def is_blank(ch: str)-> bool:

@@ -1,7 +1,7 @@
 from typing import Tuple, Optional
 
-from interpreter.input.string_stream import PeekableStream
-from interpreter.lexer.token import Token
+from src.interpreter.input.string_stream import PeekableStream
+from src.interpreter.lexer.token import Token
 
 
 class TokenFactory:

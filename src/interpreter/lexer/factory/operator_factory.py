@@ -1,8 +1,8 @@
 from typing import Tuple, Optional
 
 from src.calculator import op_calc_map
-from interpreter.lexer.factory.token_factory import TokenFactory
-from interpreter.lexer.token import Token, TokenType
+from src.interpreter.lexer.factory.token_factory import TokenFactory
+from src.interpreter.lexer.token import Token, TokenType
 
 operators = {op: Token(TokenType.OPERATOR, op) for op in op_calc_map}
 

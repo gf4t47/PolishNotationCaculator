@@ -1,11 +1,11 @@
 import pytest
 
-from interpreter.input.string_stream import MovableStream
-from interpreter.lexer.lexer import Lexer
-from interpreter.lexer.factory.bracket_factory import brackets
-from interpreter.lexer.factory.operator_factory import operators
-from interpreter.lexer.token import Token, TokenType
-from interpreter.parser.token_stream import TokenStream
+from src.interpreter.input.string_stream import MovableStream
+from src.interpreter.lexer.lexer import Lexer
+from src.interpreter.lexer.factory.bracket_factory import brackets
+from src.interpreter.lexer.factory.operator_factory import operators
+from src.interpreter.lexer.token import Token, TokenType
+from src.interpreter.parser.token_stream import TokenStream
 
 
 def tokenize(expr: str)-> [Token]:
@@ -69,8 +69,8 @@ def test_number_operator(expr, expected):
 
 @pytest.mark.parametrize("expr, expected", [
     ('( 1 + 1 )', [brackets['('], Token(TokenType.NUMBER, 1), operators['+'], Token(TokenType.NUMBER, 1), brackets[')']]),
-    ('0 / (* 0)', [Token(TokenType.NUMBER, 0), operators['/'], operators['*'], brackets['('], Token(TokenType.NUMBER, 0), brackets['(']]),
-    ('100 - (22 / 34)', [Token(TokenType.NUMBER, 100), operators['-'], brackets['('], Token(TokenType.NUMBER, 22), operators['/'], Token(TokenType.NUMBER, 34), brackets['(']]),
+    ('0 / (* 0)', [Token(TokenType.NUMBER, 0), operators['/'], brackets['('], operators['*'], Token(TokenType.NUMBER, 0), brackets[')']]),
+    ('100 - (22 / 34)', [Token(TokenType.NUMBER, 100), operators['-'], brackets['('], Token(TokenType.NUMBER, 22), operators['/'], Token(TokenType.NUMBER, 34), brackets[')']]),
     ('((121 09) ** 12)', [brackets['('], brackets['('], Token(TokenType.NUMBER, 121), Token(TokenType.NUMBER, 9), brackets[')'], operators['*'], operators['*'], Token(TokenType.NUMBER, 12), brackets[')']]),
 ])
 def test_number_op_bracket(expr, expected):

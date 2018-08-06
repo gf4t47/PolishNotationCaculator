@@ -1,5 +1,5 @@
-from interpreter.lexer.lexer import Lexer
-from interpreter.lexer.token import TokenType, Token
+from src.interpreter.lexer.lexer import Lexer
+from src.interpreter.lexer.token import TokenType, Token
 
 
 class TokenStream:
