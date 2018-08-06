@@ -1,7 +1,9 @@
 import pytest
 from src.main import evaluate
+from src.interpreter.lexer.token import Token, TokenType
 
 
-@pytest.mark.parametrize("expr, expected, binary_op", [('(+ 1 (- 0 1))', 0, False)])
-def test(expr, expected, binary_op):
-    assert expected == evaluate(expr, binary_op)
+@pytest.mark.parametrize("token", [Token(TokenType.NUMBER, 0)])
+def test(token):
+    print(token)
+    assert token.type == TokenType.NUMBER
