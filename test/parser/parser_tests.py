@@ -14,6 +14,7 @@ from src.interpreter.parser.parser import Parser
     '+ 1 1 1',
     '( + 1 1 1 )',
     '+ 1 ( + 1 1 1 )',
+    '( + 1 ( + 1 1 1 ))',
 ])
 def test(expr):
     string = MovableStream(expr)
@@ -23,3 +24,4 @@ def test(expr):
     ast = parser.parse()
 
     print(ast)
+    assert ast is not None

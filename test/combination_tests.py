@@ -1,6 +1,6 @@
 import pytest
 from tools.expression_builder import ternary_generator_all_op
-from src.main import evaluate
+from src.main import evaluate_stack as evaluate
 
 left_data = [0, 1, 10]
 right_data = [1, 343]

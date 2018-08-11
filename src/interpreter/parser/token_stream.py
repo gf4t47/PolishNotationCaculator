@@ -8,7 +8,7 @@ class TokenStream:
         self._stream = []
         cur_token = lexer.next_token()
         while cur_token.type != TokenType.EOF:
-            print(cur_token)
+            # print(cur_token)
             self._stream.append(cur_token)
             cur_token = lexer.next_token()
         self._stream.append(cur_token)
@@ -22,7 +22,7 @@ class TokenStream:
         return self.__pos
 
     def reset(self, index: int):
-        if 0 <= index < len(self._stream):
+        if 0 < index <= len(self._stream):
             self.__pos = index
         else:
-            raise IndexError(f'Index argument must be between 0 and {len(self._stream) - 1}, but input is {index}')
+            raise IndexError(f'Index argument must be between 1 and {len(self._stream)}, but input is {index}')

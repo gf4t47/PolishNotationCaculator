@@ -1,8 +1,15 @@
+import logging
+import sys
+
 from src.interpreter.lexer.token import TokenType, Token
 from src.interpreter.parser.node.binary import BinaryOp
 from src.interpreter.parser.node.factory import FactorNode, Num
 from src.interpreter.parser.node.node import AstNode
 from src.interpreter.parser.token_stream import TokenStream
+
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+# logging.disable(logging.DEBUG)
 
 
 class PeekableException(SyntaxError):
@@ -25,6 +32,7 @@ class Parser:
         self._token_streams = tokens
         self.current_token = self._token_streams.next_token()
         self._binary_op = binary_op
+        self.count = 0
 
     @property
     def current_token(self) -> Token:
@@ -39,14 +47,20 @@ class Parser:
         return self._binary_op
 
     def _syntax_error_wrapper(self, action, *argv, **kwargs):
-        record = self._token_streams.current()
+        token = self.current_token
+        index = self._token_streams.current()
+        self.count += 1
+        if self.count > 100:
+            raise ValueError(self.count)
+
         try:
             return True, action(*argv, **kwargs)
         except PeekableException as e:
-            self._vomit(record)
+            self._vomit(token, index)
             return False, e
 
-    def _vomit(self, index: int):
+    def _vomit(self, token: Token, index: int):
+        self.current_token = token
         self._token_streams.reset(index)
 
     def _eat(self, token_type: TokenType) -> Token:
@@ -63,6 +77,7 @@ class Parser:
             Token.TokenType == NUMBER
         :return: Num
         """
+        logging.debug('entry %s with %s', self.number.__name__, self.current_token)
         if self.current_token.type != TokenType.NUMBER:
             raise PeekableException(f'Unexpected number token {self.current_token}')
 
@@ -74,6 +89,7 @@ class Parser:
             number
         :return: FactoryNode
         """
+        logging.debug('entry %s with %s', self.factor.__name__, self.current_token)
         if self.current_token.type == TokenType.NUMBER:
             return self.number()
 
@@ -86,6 +102,7 @@ class Parser:
             | factor factor (factor)* #if self.binary_op is False
         :return: [FactorNode]
         """
+        logging.debug('entry %s with %s', self.factor_list.__name__, self.current_token)
         factors = [self.factor(), self.factor()]  # at least have two operands
         if not self.binary_op:
             is_factor, node = self._syntax_error_wrapper(self.factor)
@@ -100,6 +117,7 @@ class Parser:
             OP factor_list
         :return: BinaryOp
         """
+        logging.debug('entry %s with %s', self.formula.__name__, self.current_token)
         if self.current_token.type == TokenType.OPERATOR:
             op = self._eat(TokenType.OPERATOR)
             nodes = self.factor_list()
@@ -116,6 +134,7 @@ class Parser:
             | LPAREN formula RPAREN
         :return: factor node or formula node
         """
+        logging.debug('entry %s with %s', self.operand.__name__, self.current_token)
         if self.current_token.type == TokenType.BRACKET and self.current_token.value is True:
             self._eat(TokenType.BRACKET)
             is_formula, formula_node = self._syntax_error_wrapper(self.formula)
@@ -149,6 +168,11 @@ class Parser:
             | OP operand term (term)* #if self.binary_op is False
         :return AstNode:
         """
+        logging.debug('entry %s with %s', self.term.__name__, self.current_token)
+        is_operand, node = self._syntax_error_wrapper(self.operand)
+        if is_operand:
+            return node
+
         if self.current_token.type == TokenType.OPERATOR:
             nodes = []
             op = self._eat(TokenType.OPERATOR)
@@ -161,9 +185,10 @@ class Parser:
                     is_term, term_node = self._syntax_error_wrapper(self.term)
             return _construct_binary_node(op, nodes)
 
-        return self.operand()
+        raise PeekableException(f'Unexpected term token {self.current_token}')
 
     def parse(self):
+        logging.debug('entry %s with %s', self.parse.__name__, self.current_token)
         node = self.term()
 
         if self.current_token.type != TokenType.EOF:
