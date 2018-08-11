@@ -7,12 +7,11 @@ from src.interpreter.parser.parser import Parser
 
 
 def test():
-    string = MovableStream('2')
+    string = MovableStream('+ 1 1 1')
     lexer = Lexer(string)
     tokens = TokenStream(lexer)
-    p = Parser(tokens)
-
-    valid, token = p._syntax_error_wrapper(p.number)
-    print(token)
-    assert True == valid
+    parser = Parser(tokens, False)
+    ast = parser.parse()
+    print(ast)
+    assert ast is not None
 
