@@ -1,9 +1,18 @@
 import pytest
-from src.main import evaluate
-from src.interpreter.lexer.token import Token, TokenType
+
+from src.interpreter.input.string_stream import MovableStream
+from src.interpreter.lexer.lexer import Lexer
+from src.interpreter.parser.token_stream import TokenStream
+from src.interpreter.parser.parser import Parser
 
 
-@pytest.mark.parametrize("token", [Token(TokenType.NUMBER, 0)])
-def test(token):
+def test():
+    string = MovableStream('2')
+    lexer = Lexer(string)
+    tokens = TokenStream(lexer)
+    p = Parser(tokens)
+
+    valid, token = p._syntax_error_wrapper(p.number)
     print(token)
-    assert token.type == TokenType.NUMBER
+    assert True == valid
+
