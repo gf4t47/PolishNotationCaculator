@@ -3,7 +3,7 @@ import logging
 import sys
 
 from attr import dataclass
-from src.calculator import op_calc_map
+from src.operators import op_calc_map
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 

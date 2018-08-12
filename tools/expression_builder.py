@@ -1,6 +1,6 @@
 from typing import Optional
 
-from src.calculator import op_calc_map
+from src.operators import op_calc_map
 
 
 def _build_binary_expression(op: str, left: (int, str), right: (int, str), enforce_bracket: Optional[bool]):

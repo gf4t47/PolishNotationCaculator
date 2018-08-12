@@ -1,6 +1,6 @@
 from typing import Tuple, Optional
 
-from src.calculator import op_calc_map
+from src.operators import op_calc_map
 from src.interpreter.lexer.factory.token_factory import TokenFactory
 from src.interpreter.lexer.token import Token, TokenType
 

@@ -1,4 +1,4 @@
-from src.calculator import op_calc_map
+from src.operators import op_calc_map
 from src.interpreter.parser.node.binary import BinaryOp
 from src.interpreter.parser.node.factory import Num
 from src.interpreter.visitor.node_visitor import NodeVisitor

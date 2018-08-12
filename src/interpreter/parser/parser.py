@@ -84,7 +84,7 @@ class Parser:
             self.current_token = self._token_streams.next_token()
             return eaten
 
-        raise PeekableException(f"can't eat token type {self.current_token.type}, expecting {type}")
+        raise TypeError(f"can't eat token type {self.current_token.type}, expecting {type}")
 
     def number(self) -> Num:
         """
