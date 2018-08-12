@@ -4,7 +4,7 @@ from typing import Tuple, Callable, Union
 
 from src.interpreter.lexer.token import TokenType, Token
 from src.interpreter.parser.node.binary import BinaryOp
-from src.interpreter.parser.node.factory import FactorNode, Num
+from src.interpreter.parser.node.factory import FactorNode, Num, Variable
 from src.interpreter.parser.node.node import AstNode
 from src.interpreter.parser.token_stream import TokenStream
 
@@ -86,6 +86,18 @@ class Parser:
 
         raise TypeError(f"can't eat token type {self.current_token.type}, expecting {type}")
 
+    def variable(self)-> Variable:
+        """
+        variable:
+            Token.TokenType == VARIABLE
+        :return:
+        """
+        logging.debug('entry %s with %s', self.variable.__name__, self.current_token)
+        if self.current_token.type != TokenType.VARIABLE:
+            raise PeekableException(f'Unexpected number token {self.current_token}')
+
+        return Variable(self._eat(TokenType.VARIABLE))
+
     def number(self) -> Num:
         """
         number:
@@ -102,11 +114,15 @@ class Parser:
         """
         factor:
             number
+            | variable
         :return: FactoryNode
         """
         logging.debug('entry %s with %s', self.factor.__name__, self.current_token)
         if self.current_token.type == TokenType.NUMBER:
             return self.number()
+
+        if self.current_token.type == TokenType.VARIABLE:
+            return self.variable()
 
         raise PeekableException(f'Unexpected factor token {self.current_token}')
 

@@ -1,3 +1,4 @@
+from interpreter.visitor.enviroment import VariableEnviroment
 from src.interpreter.visitor.calculator import Calculator
 from src.interpreter.input.string_stream import MovableStream
 from src.interpreter.lexer.lexer import Lexer
@@ -19,8 +20,9 @@ def stack_calc(expression: str, binary_op: bool) -> int:
     return StackInterpreter(binary_op).evaluate(expression)
 
 
-def interpreter_calc(expression: str, free_op: bool) -> int:
+def interpreter_calc(expression: str, free_op: bool, env: VariableEnviroment=None) -> int:
     """
+    :param env: global variable enviroment
     :type free_op: bool
     :param free_op: indicate whether the calculator support free operator (operator can operate operands number larger than 2)
     :type expression: str
@@ -33,5 +35,5 @@ def interpreter_calc(expression: str, free_op: bool) -> int:
     tokens = TokenStream(lexer)
     parser = Parser(tokens, free_op)
     ast = parser.parse()
-    calculator = Calculator(ast)
+    calculator = Calculator(ast, env if env is not None else VariableEnviroment())
     return calculator.evaluate()

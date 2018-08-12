@@ -1,3 +1,4 @@
+from interpreter.lexer.factory.variable_factory import VariableFactory
 from src.interpreter.input.string_stream import MovableStream
 from src.interpreter.lexer.factory.bracket_factory import BracketFactory
 from src.interpreter.lexer.factory.number_factory import NumberFactory
@@ -14,6 +15,7 @@ class Lexer:
         self.__stream = stream
         self._bracket_factory = BracketFactory(stream)
         self._number_factory = NumberFactory(stream)
+        self._variable_factory = VariableFactory(stream)
         self._operator_factory = OperatorFactory(stream)
 
     @property
@@ -34,6 +36,11 @@ class Lexer:
             if num_length > 0:
                 self._movable_stream.advance(num_length)
                 return num_token
+
+            var_length, var_token = self._variable_factory.match()
+            if var_length > 0:
+                self._movable_stream.advance(var_length)
+                return var_token
 
             operator_length, operator_token = self._operator_factory.match()
             if operator_length > 0:

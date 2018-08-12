@@ -7,6 +7,7 @@ class TokenType(Enum):
     NUMBER = 1
     OPERATOR = 2
     BRACKET = 3
+    VARIABLE = 4
 
     def __str__(self):
         return str(self.name)

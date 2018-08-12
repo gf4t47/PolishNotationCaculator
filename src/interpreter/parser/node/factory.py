@@ -15,3 +15,13 @@ class Num(FactorNode):
     def __init__(self, token: Token):
         assert token.type == TokenType.NUMBER
         super().__init__(token)
+
+
+class Variable(FactorNode):
+    def __init__(self, token: Token):
+        assert token.type == TokenType.VARIABLE
+        super().__init__(token)
+
+    @property
+    def name(self):
+        return self.value
