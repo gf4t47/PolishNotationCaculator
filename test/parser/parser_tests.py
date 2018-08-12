@@ -9,12 +9,13 @@ from src.interpreter.parser.parser import Parser
 @pytest.mark.parametrize("expr", [
     '1',
     '( 1 )',
+    '(( 1 ))',
     '+ 1 1',
     '( + 1 1 )',
     '+ 1 1 1',
     '( + 1 1 1 )',
     '+ 1 ( + 1 1 1 )',
-    '( + 1 ( + 1 1 1 ))',
+    '(((( + 1 ( + 1 1 1 )))))',
 ])
 def test(expr):
     string = MovableStream(expr)

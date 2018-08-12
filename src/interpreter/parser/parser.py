@@ -1,5 +1,6 @@
 import logging
 import sys
+from typing import Tuple, Callable, Union
 
 from src.interpreter.lexer.token import TokenType, Token
 from src.interpreter.parser.node.binary import BinaryOp
@@ -9,7 +10,7 @@ from src.interpreter.parser.token_stream import TokenStream
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-# logging.disable(logging.DEBUG)
+logging.disable(logging.DEBUG)
 
 
 class PeekableException(SyntaxError):
@@ -32,7 +33,6 @@ class Parser:
         self._token_streams = tokens
         self.current_token = self._token_streams.next_token()
         self._binary_op = binary_op
-        self.count = 0
 
     @property
     def current_token(self) -> Token:
@@ -46,13 +46,28 @@ class Parser:
     def binary_op(self):
         return self._binary_op
 
-    def _syntax_error_wrapper(self, action, *argv, **kwargs):
+    def _bracket_stripper(self, action: Callable, *argv, **kwargs)-> (FactorNode, BinaryOp):
+        """
+        strip the brackets, parse the internal content
+        :param action: real parser action
+        """
+        assert self.current_token.type == TokenType.BRACKET
+        assert self.current_token.value is True
+        self._eat(TokenType.BRACKET)
+        result = action(*argv, **kwargs)
+        assert self.current_token.type == TokenType.BRACKET
+        assert self.current_token.value is False
+        self._eat(TokenType.BRACKET)
+        return result
+
+    def _peekable_error_wrapper(self, action: Callable, *argv, **kwargs)->Tuple[bool, Union[AstNode, PeekableException]]:
+        """
+        play as a try and roll back action wrapper
+        :param action: real parser action
+        :return: indicating action succeed or not, parsed result
+        """
         token = self.current_token
         index = self._token_streams.current()
-        self.count += 1
-        if self.count > 100:
-            raise ValueError(self.count)
-
         try:
             return True, action(*argv, **kwargs)
         except PeekableException as e:
@@ -95,101 +110,42 @@ class Parser:
 
         raise PeekableException(f'Unexpected factor token {self.current_token}')
 
-    def factor_list(self) -> [FactorNode]:
-        """
-        factor_list:
-            factor factor             #if self.binary_op is True
-            | factor factor (factor)* #if self.binary_op is False
-        :return: [FactorNode]
-        """
-        logging.debug('entry %s with %s', self.factor_list.__name__, self.current_token)
-        factors = [self.factor(), self.factor()]  # at least have two operands
-        if not self.binary_op:
-            is_factor, node = self._syntax_error_wrapper(self.factor)
-            while is_factor:
-                factors.append(node)
-                is_factor, node = self._syntax_error_wrapper(self.factor)
-        return factors
-
     def formula(self) -> BinaryOp:
         """
         formula:
-            OP factor_list
+            OP operand operand                 # if self.binary_op is True
+            | OP operand operand (operand)*    # if self.binary_op is False
         :return: BinaryOp
         """
         logging.debug('entry %s with %s', self.formula.__name__, self.current_token)
-        if self.current_token.type == TokenType.OPERATOR:
-            op = self._eat(TokenType.OPERATOR)
-            nodes = self.factor_list()
-            return _construct_binary_node(op, nodes)
-
-        raise PeekableException(f'Unexpected formula token {self.current_token}')
+        op = self._eat(TokenType.OPERATOR)
+        nodes = [self.operand(), self.operand()]
+        if self.binary_op is False:
+            is_operand, operand = self._peekable_error_wrapper(self.operand)
+            while is_operand:
+                nodes.append(operand)
+                is_operand, operand = self._peekable_error_wrapper(self.operand)
+        return _construct_binary_node(op, nodes)
 
     def operand(self) -> (FactorNode, BinaryOp):
         """
         operand:
-            factor
-            | formula                #if self.binary_op is True
-            | LPAREN factor RPAREN
-            | LPAREN formula RPAREN
+            LPAREN operand RPAREN
+            | formula
+            | factor
         :return: factor node or formula node
         """
         logging.debug('entry %s with %s', self.operand.__name__, self.current_token)
         if self.current_token.type == TokenType.BRACKET and self.current_token.value is True:
-            self._eat(TokenType.BRACKET)
-            is_formula, formula_node = self._syntax_error_wrapper(self.formula)
-            if is_formula:
-                assert self.current_token.type == TokenType.BRACKET
-                assert self.current_token.value is False
-                self._eat(TokenType.BRACKET)
-                return formula_node
+            return self._bracket_stripper(self.operand)
+        elif self.current_token.type == TokenType.OPERATOR:
+            return self.formula()
 
-            is_factor, factor_node = self._syntax_error_wrapper(self.factor)
-            if is_factor:
-                assert self.current_token.type == TokenType.BRACKET
-                assert self.current_token.value is False
-                self._eat(TokenType.BRACKET)
-                return factor_node
-        else:
-            if self.binary_op:
-                is_formula, formula_node = self._syntax_error_wrapper(self.formula)
-                if is_formula:
-                    return formula_node
-
-            is_factor, factor_node = self._syntax_error_wrapper(self.factor)
-            if is_factor:
-                return factor_node
-
-    def term(self) -> AstNode:
-        """
-        term:
-            operand
-            | OP operand term         #if self.binary_op is True
-            | OP operand term (term)* #if self.binary_op is False
-        :return AstNode:
-        """
-        logging.debug('entry %s with %s', self.term.__name__, self.current_token)
-        is_operand, node = self._syntax_error_wrapper(self.operand)
-        if is_operand:
-            return node
-
-        if self.current_token.type == TokenType.OPERATOR:
-            nodes = []
-            op = self._eat(TokenType.OPERATOR)
-            nodes.append(self.operand())
-            nodes.append(self.term())
-            if not self.binary_op:
-                is_term, term_node = self._syntax_error_wrapper(self.term)
-                while is_term:
-                    nodes.append(term_node)
-                    is_term, term_node = self._syntax_error_wrapper(self.term)
-            return _construct_binary_node(op, nodes)
-
-        raise PeekableException(f'Unexpected term token {self.current_token}')
+        return self.factor()
 
     def parse(self):
         logging.debug('entry %s with %s', self.parse.__name__, self.current_token)
-        node = self.term()
+        node = self.operand()
 
         if self.current_token.type != TokenType.EOF:
             raise TypeError(f'the token stream is not finished after parsing, token left = {self.current_token}')
