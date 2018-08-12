@@ -8,8 +8,9 @@ from src.interpreter.parser.parser import Parser
 from src.stack.stack_interpreter import StackInterpreter
 
 
-def stack_calc(expression: str, binary_op: bool) -> int:
+def stack_calc(expression: str, binary_op: bool, env: VariableEnviroment=None) -> int:
     """
+    :param env: global variable enviroment
     :type binary_op: bool
     :param binary_op: indicate whether the calculator support free operator (operator can operate operands number larger than 2)
     :type expression: str
@@ -17,7 +18,7 @@ def stack_calc(expression: str, binary_op: bool) -> int:
     :rtype: int
     :return: evaluated value for the input expression
     """
-    return StackInterpreter(binary_op).evaluate(expression)
+    return StackInterpreter(binary_op, env if env is not None else VariableEnviroment()).evaluate(expression)
 
 
 def interpreter_calc(expression: str, free_op: bool, env: VariableEnviroment=None) -> int:

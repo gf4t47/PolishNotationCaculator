@@ -3,6 +3,8 @@ import logging
 import sys
 
 from attr import dataclass
+
+from src.interpreter.visitor.enviroment import VariableEnviroment
 from src.operators import op_calc_map
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
@@ -17,9 +19,18 @@ NumberToken.terminal = NumberToken(-1)
 
 
 class StackInterpreter:
-    def __init__(self: object, binary_op: bool) -> None:
+    def __init__(self: object, binary_op: bool, env: VariableEnviroment) -> None:
         self.__number_stack = []
+        self._global_env = env
         self._binary_op = binary_op
+
+    @property
+    def _global_env(self)-> VariableEnviroment:
+        return self.__global_env
+
+    @_global_env.setter
+    def _global_env(self, val: VariableEnviroment)->None:
+        self.__global_env = val
 
     @property
     def _number_stack(self):
@@ -73,6 +84,13 @@ class StackInterpreter:
                     index -= 1
                     cur = expression[index]
                 self._number_stack.append(NumberToken(int(num_str[::-1])))
+            elif cur.isalpha():
+                var_str = ''
+                while index >= 0 and cur.isalpha():
+                    var_str += cur
+                    index -= 1
+                    cur = expression[index]
+                self._number_stack.append(NumberToken(self._global_env.lookup(var_str[::-1])))
             elif cur == ')':
                 if not self._binary_op:
                     self._number_stack.append(NumberToken.terminal)
