@@ -1,6 +1,6 @@
 import pytest
 from tools.expression_builder import unary_generator, binary_generator
-from src.main import evaluate_stack as evaluate
+from src.main import stack_calc as evaluate
 
 
 left_data = [0, 1, 2, 10, 2]

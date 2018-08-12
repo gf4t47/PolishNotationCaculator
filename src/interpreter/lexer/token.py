@@ -19,3 +19,6 @@ class Token:
 
     def __str__(self):
         return f'TOKEN({self.value}:{self.type})'
+
+    def __repr__(self):
+        return self.__str__()
