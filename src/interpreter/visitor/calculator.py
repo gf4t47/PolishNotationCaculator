@@ -42,9 +42,12 @@ class Calculator(NodeVisitor):
         return
 
     def visit_Sequence(self, node: Sequence):
+        self._env = VariableEnviroment(prev=self._env)
         for p in node.preposition:
             self.visit(p)
-        return self.visit(node.action)
+        result = self.visit(node.action)
+        self._env = self._env.previous
+        return result
 
     def evaluate(self):
         return self.visit(self.ast_tree)

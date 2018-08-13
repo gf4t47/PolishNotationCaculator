@@ -175,9 +175,9 @@ class Parser:
             while self.current_token.type == TokenType.ASSIGN:
                 assigns.append(self.assigment())
 
-            calc = self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
+            calc_node = self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
 
-            return calc if len(assigns) == 0 else Sequence(assigns, calc)
+            return calc_node if len(assigns) == 0 else Sequence(assigns, calc_node)
 
     def parse(self)->AstNode:
         logging.debug('entry %s with %s', self.parse.__name__, self.current_token)
