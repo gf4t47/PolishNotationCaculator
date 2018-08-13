@@ -47,7 +47,17 @@ class Parser:
     def binary_op(self):
         return self._binary_op
 
-    def _bracket_stripper(self, action: Callable, *argv, **kwargs)-> (FactorNode, BinaryOp):
+    def _assignment_joiner(self, assignments: [AssignOp], action: Callable, *argv, **kwargs):
+        """
+        adding current assignment into variable enviroment
+        :param assignments: a list of assignments
+        :param action: real parser action
+        :param argv: pre assigment nodes
+        """
+        actor = action(*argv, **kwargs)
+        return Sequence(assignments, actor) if assignments is not None and len(assignments) > 0 else actor
+
+    def _bracket_stripper(self, action: Callable, *argv, **kwargs):
         """
         strip the brackets, parse the internal content
         :param action: real parser action
@@ -127,13 +137,13 @@ class Parser:
 
         raise PeekableException(f'Unexpected factor token {self.current_token}')
 
-    def assigment(self)->AssignOp:
+    def assignment(self)->AssignOp:
         """
         assigment:
             = variable factor
         :return:
         """
-        logging.debug('entry %s with %s', self.assigment.__name__, self.current_token)
+        logging.debug('entry %s with %s', self.assignment.__name__, self.current_token)
         if self.current_token.type == TokenType.ASSIGN:
             equal = self._eat(TokenType.ASSIGN)
             var = self.variable()
@@ -163,6 +173,7 @@ class Parser:
         """
         operand:
             LPAREN operand RPAREN
+            | (assignment)* operand
             | formula
             | factor
         :return: factor node or formula node
@@ -170,14 +181,13 @@ class Parser:
         logging.debug('entry %s with %s', self.operand.__name__, self.current_token)
         if self.current_token.type == TokenType.BRACKET and self.current_token.value is True:
             return self._bracket_stripper(self.operand)
-        else:
+        elif self.current_token.type == TokenType.ASSIGN:
             assigns = []
             while self.current_token.type == TokenType.ASSIGN:
-                assigns.append(self.assigment())
+                assigns.append(self.assignment())
+            return self._assignment_joiner(assigns, self.operand)
 
-            calc_node = self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
-
-            return calc_node if len(assigns) == 0 else Sequence(assigns, calc_node)
+        return self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
 
     def parse(self)->AstNode:
         logging.debug('entry %s with %s', self.parse.__name__, self.current_token)
