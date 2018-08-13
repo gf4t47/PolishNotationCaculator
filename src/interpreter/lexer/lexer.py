@@ -13,10 +13,12 @@ def is_blank(ch: str)-> bool:
 class Lexer:
     def __init__(self, stream: MovableStream):
         self.__stream = stream
-        self._bracket_factory = BracketFactory(stream)
-        self._number_factory = NumberFactory(stream)
-        self._variable_factory = VariableFactory(stream)
-        self._operator_factory = OperatorFactory(stream)
+        self._factories = [
+            NumberFactory(stream),
+            VariableFactory(stream),
+            OperatorFactory(stream),
+            BracketFactory(stream),
+        ]
 
     @property
     def _movable_stream(self)-> MovableStream:
@@ -32,29 +34,15 @@ class Lexer:
 
     def next_token(self) -> Token:
         while self._continued:
-            num_length, num_token = self._number_factory.match()
-            if num_length > 0:
-                self._movable_stream.advance(num_length)
-                return num_token
-
-            var_length, var_token = self._variable_factory.match()
-            if var_length > 0:
-                self._movable_stream.advance(var_length)
-                return var_token
-
-            operator_length, operator_token = self._operator_factory.match()
-            if operator_length > 0:
-                self._movable_stream.advance(operator_length)
-                return operator_token
-
-            bracket_length, bracket_token = self._bracket_factory.match()
-            if bracket_length > 0:
-                self._movable_stream.advance(bracket_length)
-                return bracket_token
-
             if is_blank(self._movable_stream.current_char):
                 self._skip_blank()
-            else:
-                raise SyntaxError(f'unrecognized character {self._movable_stream.current_char}')
+
+            for factory in self._factories:
+                matched, token = factory.match()
+                if matched > 0:
+                    self._movable_stream.advance(matched)
+                    return token
+
+            raise SyntaxError(f'unrecognized character {self._movable_stream.current_char}')
 
         return Token(TokenType.EOF, 'EOF')
