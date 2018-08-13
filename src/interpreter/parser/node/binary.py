@@ -1,4 +1,4 @@
-from interpreter.parser.node.factory import Variable
+from src.interpreter.parser.node.factory import Variable
 from src.interpreter.lexer.token import Token, TokenType
 from src.interpreter.parser.node.node import AstNode
 

@@ -1,4 +1,4 @@
-from interpreter.lexer.factory.variable_factory import VariableFactory
+from src.interpreter.lexer.factory.variable_factory import VariableFactory
 from src.interpreter.input.string_stream import MovableStream
 from src.interpreter.lexer.factory.bracket_factory import BracketFactory
 from src.interpreter.lexer.factory.number_factory import NumberFactory

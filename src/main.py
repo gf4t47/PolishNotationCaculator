@@ -1,4 +1,4 @@
-from interpreter.visitor.enviroment import VariableEnviroment
+from src.interpreter.visitor.enviroment import VariableEnviroment
 from src.interpreter.visitor.calculator import Calculator
 from src.interpreter.input.string_stream import MovableStream
 from src.interpreter.lexer.lexer import Lexer
