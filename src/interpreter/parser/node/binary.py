@@ -1,10 +1,10 @@
+from interpreter.parser.node.factory import Variable
 from src.interpreter.lexer.token import Token, TokenType
 from src.interpreter.parser.node.node import AstNode
 
 
 class BinaryOp(AstNode):
     def __init__(self, op: Token, left: AstNode, right: AstNode):
-        assert op.type == TokenType.OPERATOR
         super().__init__(op)
         self._left = left
         self._right = right
@@ -23,3 +23,23 @@ class BinaryOp(AstNode):
     @property
     def right_expr(self)-> AstNode:
         return self._right
+
+
+class CalcOp(BinaryOp):
+    def __init__(self, op: Token, left: AstNode, right: AstNode):
+        assert op.type == TokenType.CALCULATOR
+        super().__init__(op, left, right)
+
+
+class AssignOp(BinaryOp):
+    def __init__(self, op: Token, left: Variable, right: AstNode):
+        assert op.type == TokenType.ASSIGN
+        super().__init__(op, left, right)
+
+    @property
+    def name(self)->str:
+        return self.left_expr.name
+
+    @property
+    def value(self):
+        return self.right_expr

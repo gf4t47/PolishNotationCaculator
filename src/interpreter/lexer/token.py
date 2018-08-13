@@ -5,9 +5,10 @@ from attr import dataclass
 class TokenType(Enum):
     EOF = 0
     NUMBER = 1
-    OPERATOR = 2
+    CALCULATOR = 2
     BRACKET = 3
     VARIABLE = 4
+    ASSIGN = 5
 
     def __str__(self):
         return str(self.name)

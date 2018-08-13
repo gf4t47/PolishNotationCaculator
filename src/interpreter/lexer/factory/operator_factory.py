@@ -1,10 +1,11 @@
 from typing import Tuple, Optional
 
-from src.operators import op_calc_map
+from src.operators import calc_op_map
 from src.interpreter.lexer.factory.token_factory import TokenFactory
 from src.interpreter.lexer.token import Token, TokenType
 
-operators = {op: Token(TokenType.OPERATOR, op) for op in op_calc_map}
+operators = {op: Token(TokenType.CALCULATOR, op) for op in calc_op_map}
+operators['='] = Token(TokenType.ASSIGN, '=')
 
 
 class OperatorFactory(TokenFactory):

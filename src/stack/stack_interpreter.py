@@ -5,7 +5,7 @@ import sys
 from attr import dataclass
 
 from src.interpreter.visitor.enviroment import VariableEnviroment
-from src.operators import op_calc_map
+from src.operators import calc_op_map
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
@@ -40,7 +40,7 @@ class StackInterpreter:
         left = self._number_stack.pop()
         right = self._number_stack.pop()
         # logging.debug(f'{char} {left.value} {right.value}')
-        return op_calc_map[char](left.value, right.value)
+        return calc_op_map[char](left.value, right.value)
 
     def _free_op_calc(self, char):
         operands = []
@@ -53,7 +53,7 @@ class StackInterpreter:
                 break
 
         # logging.debug(f'{char} {operands}')
-        return functools.reduce(op_calc_map[char], operands)
+        return functools.reduce(calc_op_map[char], operands)
 
     def _calc(self, char):
         capability = len(self._number_stack)
@@ -73,7 +73,7 @@ class StackInterpreter:
             cur = expression[index]
             if cur.isspace() or cur == '(':  # ignore character
                 index -= 1
-            elif cur in op_calc_map:
+            elif cur in calc_op_map:
                 ret = self._calc(cur)
                 self._number_stack.append(NumberToken(ret))
                 index -= 1

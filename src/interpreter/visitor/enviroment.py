@@ -1,9 +1,10 @@
 from typing import Dict
+import copy
 
 
 class VariableEnviroment:
-    def __init__(self, v_map:Dict[str, int]=None):
-        self._map = v_map if v_map is not None else {}
+    def __init__(self, v_map: Dict[str, int]=None):
+        self._map = copy.deepcopy(v_map) if v_map is not None else {}
 
     @property
     def v_map(self) -> Dict[str, int]:

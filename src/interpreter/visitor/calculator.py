@@ -1,40 +1,50 @@
-from interpreter.parser.node.node import AstNode
-from src.interpreter.visitor.enviroment import VariableEnviroment
-from src.operators import op_calc_map
-from src.interpreter.parser.node.binary import BinaryOp
+from interpreter.parser.node.sequence import Sequence
+from src.interpreter.parser.node.node import AstNode
+from src.interpreter.parser.node.binary import CalcOp, AssignOp
 from src.interpreter.parser.node.factory import Num, Variable
+from src.interpreter.visitor.enviroment import VariableEnviroment
 from src.interpreter.visitor.node_visitor import NodeVisitor
+from src.operators import calc_op_map
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Calculator(NodeVisitor):
     def __init__(self, tree: AstNode, env: VariableEnviroment):
         self._ast = tree
-        self.global_env = env
+        self._env = env
 
     @property
     def ast_tree(self):
         return self._ast
 
     @property
-    def global_env(self):
-        return self._global_env
+    def _env(self):
+        return self.__env
 
-    @global_env.setter
-    def global_env(self, val: VariableEnviroment):
-        self._global_env = val
+    @_env.setter
+    def _env(self, val: VariableEnviroment):
+        self.__env = val
 
     def visit_Num(self, node: Num)->int:
         return node.value
 
     def visit_Variable(self, node: Variable)->int:
-        return self.global_env.lookup(node.name)
+        return self._env.lookup(node.name)
 
-    def visit_BinaryOp(self, node: BinaryOp):
+    def visit_CalcOp(self, node: CalcOp):
         op = node.op
         left_val = self.visit(node.left_expr)
         right_val = self.visit(node.right_expr)
-        return op_calc_map[op.value](left_val, right_val)
+        return calc_op_map[op.value](left_val, right_val)
+
+    def visit_AssignOp(self, node: AssignOp):
+        self._env.define(node.name, self.visit(node.value))
+        return
+
+    def visit_Sequence(self, node: Sequence):
+        for p in node.preposition:
+            self.visit(p)
+        return self.visit(node.action)
 
     def evaluate(self):
         return self.visit(self.ast_tree)

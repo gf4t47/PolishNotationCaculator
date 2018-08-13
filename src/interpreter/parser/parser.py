@@ -3,8 +3,9 @@ import sys
 from typing import Tuple, Callable, Union
 
 from src.interpreter.lexer.token import TokenType, Token
-from src.interpreter.parser.node.binary import BinaryOp
+from src.interpreter.parser.node.binary import BinaryOp, CalcOp, AssignOp
 from src.interpreter.parser.node.factory import FactorNode, Num, Variable
+from src.interpreter.parser.node.sequence import Sequence
 from src.interpreter.parser.node.node import AstNode
 from src.interpreter.parser.token_stream import TokenStream
 
@@ -17,7 +18,7 @@ class PeekableException(SyntaxError):
     pass
 
 
-def _construct_binary_node(op: Token, operands: [AstNode]):
+def _construct_calc_node(op: Token, operands: [AstNode]):
     length = len(operands)
 
     if length == 0:
@@ -25,7 +26,7 @@ def _construct_binary_node(op: Token, operands: [AstNode]):
     elif length == 1:
         return operands[0]
     else:
-        return BinaryOp(op, operands[0], _construct_binary_node(op, operands[1::]))
+        return CalcOp(op, operands[0], _construct_calc_node(op, operands[1::]))
 
 
 class Parser:
@@ -126,7 +127,22 @@ class Parser:
 
         raise PeekableException(f'Unexpected factor token {self.current_token}')
 
-    def formula(self) -> BinaryOp:
+    def assigment(self)->AssignOp:
+        """
+        assigment:
+            = variable factor
+        :return:
+        """
+        logging.debug('entry %s with %s', self.assigment.__name__, self.current_token)
+        if self.current_token.type == TokenType.ASSIGN:
+            equal = self._eat(TokenType.ASSIGN)
+            var = self.variable()
+            factor = self.factor()
+            return AssignOp(equal, var, factor)
+
+        raise PeekableException(f'Unexpected assigment token {self.current_token}')
+
+    def formula(self) -> CalcOp:
         """
         formula:
             OP operand operand                 # if self.binary_op is True
@@ -134,16 +150,16 @@ class Parser:
         :return: BinaryOp
         """
         logging.debug('entry %s with %s', self.formula.__name__, self.current_token)
-        op = self._eat(TokenType.OPERATOR)
+        op = self._eat(TokenType.CALCULATOR)
         nodes = [self.operand(), self.operand()]
         if self.binary_op is False:
             is_operand, operand = self._peekable_error_wrapper(self.operand)
             while is_operand:
                 nodes.append(operand)
                 is_operand, operand = self._peekable_error_wrapper(self.operand)
-        return _construct_binary_node(op, nodes)
+        return _construct_calc_node(op, nodes)
 
-    def operand(self) -> (FactorNode, BinaryOp):
+    def operand(self) -> [(FactorNode, AssignOp, CalcOp)]:
         """
         operand:
             LPAREN operand RPAREN
@@ -154,12 +170,16 @@ class Parser:
         logging.debug('entry %s with %s', self.operand.__name__, self.current_token)
         if self.current_token.type == TokenType.BRACKET and self.current_token.value is True:
             return self._bracket_stripper(self.operand)
-        elif self.current_token.type == TokenType.OPERATOR:
-            return self.formula()
+        else:
+            assigns = []
+            while self.current_token.type == TokenType.ASSIGN:
+                assigns.append(self.assigment())
 
-        return self.factor()
+            calc = self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
 
-    def parse(self):
+            return calc if len(assigns) == 0 else Sequence(assigns, calc)
+
+    def parse(self)->AstNode:
         logging.debug('entry %s with %s', self.parse.__name__, self.current_token)
         node = self.operand()
 

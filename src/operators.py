@@ -1,6 +1,6 @@
 import operator
 
-op_calc_map = {
+calc_op_map = {
     '+': operator.add,
     '-': operator.sub,
     '*': operator.mul,
