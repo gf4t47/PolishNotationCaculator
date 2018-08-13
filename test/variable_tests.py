@@ -59,7 +59,8 @@ def test_assignment(expr, expected, binary_op, calc, env):
     ('+ x 1', 2),
     ('= x 0 + x 1', 1),
     ('= x 10 + x (+ x y)', 21),
-    ('= x 10 + x (= x 0 + x y)', 11),
+    ('= x 10 = y 10 + x (= x 0 + x y)', 20),
+    ('+ (= x 10 = y 10 + x (= x 0 + (= y 0 + x y) y)) x', 21),
 ])
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
