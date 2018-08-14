@@ -4,7 +4,7 @@ from src.interpreter.parser.node.binary import CalcOp, AssignOp
 from src.interpreter.parser.node.factory import Num, Variable
 from src.interpreter.visitor.environment import VariableEnvironment
 from src.interpreter.visitor.node_visitor import NodeVisitor
-from src.operators import calc_op_map
+from src.operators import calc
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
@@ -25,13 +25,14 @@ class Calculator(NodeVisitor):
         return node.value
 
     def visit_Variable(self, node: Variable, env: VariableEnvironment)->int:
-        return env.lookup(node.name)
+        found = env.lookup(node.name)
+        return found if found is not None else node
 
     def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment):
         op = node.op
         left_val = self.visit(node.left_expr, env)
         right_val = self.visit(node.right_expr, env)
-        return calc_op_map[op.value](left_val, right_val)
+        return calc(op, left_val, right_val)
 
     def visit_AssignOp(self, node: AssignOp, env: VariableEnvironment):
         env.define(node.name, self.visit(node.value, env))

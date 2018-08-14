@@ -18,12 +18,13 @@ class VariableEnvironment:
     def define(self, name: str, val: int) -> None:
         self.v_map[name] = val
 
-    def lookup(self, name: str) -> int:
+    def lookup(self, name: str) -> Optional[int]:
         if name in self.v_map:
             return self.v_map[name]
 
         if self.previous is not None:
             return self.previous.lookup(name)
 
-        raise KeyError(f"Can't resolve variable {name}")
+        # raise KeyError(f"Can't resolve variable {name}")
+        return None
 
