@@ -38,7 +38,7 @@
     + x y z -> 0
     = x 10 + x x z -> 21
     = x 10 = y 10 = z 10 + x y z -> 30
-## Variable and reassignment in scoped environment, aka shadow variable feature
+## Variable and reassignment in scoped environment, aka variable shadowing feature
 	predefined env: {
         x: 1,
         y: 0,
