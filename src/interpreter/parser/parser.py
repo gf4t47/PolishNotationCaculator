@@ -3,12 +3,11 @@ import sys
 from typing import Tuple, Callable, Union
 
 from src.interpreter.lexer.token import TokenType, Token
-from src.interpreter.parser.node.binary import BinaryOp, CalcOp, AssignOp
+from src.interpreter.parser.node.binary import CalcOp, AssignOp
 from src.interpreter.parser.node.factory import FactorNode, Num, Variable
-from src.interpreter.parser.node.sequence import Sequence
 from src.interpreter.parser.node.node import AstNode
+from src.interpreter.parser.node.sequence import Sequence
 from src.interpreter.parser.token_stream import TokenStream
-
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logging.disable(logging.DEBUG)
@@ -29,6 +28,17 @@ def _construct_calc_node(op: Token, operands: [AstNode]):
         return CalcOp(op, operands[0], _construct_calc_node(op, operands[1::]))
 
 
+def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwargs):
+    """
+    adding current assignment into variable enviroment
+    :param assignments: a list of assignments
+    :param action: real parser action
+    :param argv: pre assigment nodes
+    """
+    actor = action(*argv, **kwargs)
+    return Sequence(assignments, actor) if assignments is not None and len(assignments) > 0 else actor
+
+
 class Parser:
     def __init__(self, tokens: TokenStream, binary_op: bool):
         self._token_streams = tokens
@@ -46,16 +56,6 @@ class Parser:
     @property
     def binary_op(self):
         return self._binary_op
-
-    def _assignment_joiner(self, assignments: [AssignOp], action: Callable, *argv, **kwargs):
-        """
-        adding current assignment into variable enviroment
-        :param assignments: a list of assignments
-        :param action: real parser action
-        :param argv: pre assigment nodes
-        """
-        actor = action(*argv, **kwargs)
-        return Sequence(assignments, actor) if assignments is not None and len(assignments) > 0 else actor
 
     def _bracket_stripper(self, action: Callable, *argv, **kwargs):
         """
@@ -185,7 +185,7 @@ class Parser:
             assigns = []
             while self.current_token.type == TokenType.ASSIGN:
                 assigns.append(self.assignment())
-            return self._assignment_joiner(assigns, self.operand)
+            return _assignment_joiner(assigns, self.operand)
 
         return self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
 
