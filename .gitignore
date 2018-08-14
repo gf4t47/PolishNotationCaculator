@@ -1,9 +1,4 @@
-#Included exe/dll
-![nN]u[gG]et.exe
-
-/test/**/.pytest_cache/
-/.idea/workspace\.xml
-
+\test\**\.cache\
+\.idea\workspace\.xml
 \.idea/misc\.xml
-
-\.idea/PolishNotationCaculator\.iml
+\.idea/PolishNotationCalculator\.iml
