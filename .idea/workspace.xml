@@ -4,10 +4,7 @@
     <option name="SHOW_STRUCTURE" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c56502ef-aab2-4ee5-b434-3a3668a5e6f0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/specification.md" beforeDir="false" afterPath="$PROJECT_DIR$/specification.md" afterDir="false" />
-    </list>
+    <list default="true" id="c56502ef-aab2-4ee5-b434-3a3668a5e6f0" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +19,7 @@
     <SUITE FILE_PATH="coverage/PolishNotationCaculator$comb.coverage" NAME="comb Coverage Results" MODIFIED="1534217318195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/PolishNotationCalculator$corner.coverage" NAME="corner Coverage Results" MODIFIED="1534223662001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/PolishNotationCaculator$pytest_for_lexer_tests_test_operators.coverage" NAME="pytest for lexer_tests.test_operators Coverage Results" MODIFIED="1533543401994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/lexer" />
-    <SUITE FILE_PATH="coverage/PolishNotationCalculator$variable.coverage" NAME="variable Coverage Results" MODIFIED="1534223667575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/PolishNotationCalculator$variable.coverage" NAME="variable Coverage Results" MODIFIED="1534225326827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/PolishNotationCaculator$debug.coverage" NAME="debug Coverage Results" MODIFIED="1533972099465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/PolishNotationCaculator$variable.coverage" NAME="variable Coverage Results" MODIFIED="1534217352441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/PolishNotationCaculator$pytest_in_lexer_tests_py.coverage" NAME="lexer Coverage Results" MODIFIED="1534217356993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
@@ -82,7 +79,7 @@
     <session id="-1150237259">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.opened" value="3" />
@@ -93,13 +90,13 @@
           <entry key="dummy" value="1" />
           <entry key="gitignore" value="14" />
           <entry key="md" value="48" />
-          <entry key="txt" value="72" />
+          <entry key="txt" value="78" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="8" />
-          <entry key="PLAIN_TEXT" value="127" />
+          <entry key="PLAIN_TEXT" value="133" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -189,8 +186,8 @@
         <entry file="file://$PROJECT_DIR$/specification.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="435">
-                <caret line="40" column="75" selection-start-line="40" selection-start-column="75" selection-end-line="40" selection-end-column="75" />
+              <first_editor relative-caret-position="551">
+                <caret line="29" column="21" lean-forward="true" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
               </first_editor>
               <second_editor />
             </state>
@@ -350,31 +347,7 @@
             <path>
               <item name="PolishNotationCalculator" type="b2602c69:ProjectViewProjectNode" />
               <item name="PolishNotationCalculator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PolishNotationCalculator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PolishNotationCalculator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="interpreter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PolishNotationCalculator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PolishNotationCalculator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="interpreter" type="462c0819:PsiDirectoryNode" />
-              <item name="visitor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PolishNotationCalculator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PolishNotationCalculator" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PolishNotationCalculator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PolishNotationCalculator" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name=".cache" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -651,13 +624,17 @@
       <option name="project" value="LOCAL" />
       <updated>1534225098225</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="update specification">
+      <created>1534225309604</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1534225309604</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="corner - 2018.08.13 at 20h 30m 33s.xml">
-      <configuration name="corner" configurationId="tests" />
-    </history-entry>
     <history-entry file="corner - 2018.08.13 at 20h 30m 47s.xml">
       <configuration name="corner" configurationId="tests" />
     </history-entry>
@@ -685,10 +662,12 @@
     <history-entry file="variable - 2018.08.13 at 22h 14m 28s.xml">
       <configuration name="variable" configurationId="tests" />
     </history-entry>
+    <history-entry file="variable - 2018.08.13 at 22h 42m 08s.xml">
+      <configuration name="variable" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1933" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49838188" visible="true" weight="0.17013334" />
       <window_info id="Structure" order="1" sideWeight="0.50161815" side_tool="true" weight="0.16213334" />
@@ -741,7 +720,8 @@
     <MESSAGE value="rename project" />
     <MESSAGE value="fix spelling error." />
     <MESSAGE value="add specification" />
-    <option name="LAST_COMMIT_MESSAGE" value="add specification" />
+    <MESSAGE value="update specification" />
+    <option name="LAST_COMMIT_MESSAGE" value="update specification" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/interpreter/lexer/__init__.py">
@@ -1003,8 +983,8 @@
     <entry file="file://$PROJECT_DIR$/specification.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="435">
-            <caret line="40" column="75" selection-start-line="40" selection-start-column="75" selection-end-line="40" selection-end-column="75" />
+          <first_editor relative-caret-position="551">
+            <caret line="29" column="21" lean-forward="true" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
           </first_editor>
           <second_editor />
         </state>
