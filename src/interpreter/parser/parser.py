@@ -30,7 +30,7 @@ def _construct_calc_node(op: Token, operands: [AstNode]):
 
 def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwargs):
     """
-    adding current assignment into variable enviroment
+    adding current assignment into variable environment
     :param assignments: a list of assignments
     :param action: real parser action
     :param argv: pre assigment nodes

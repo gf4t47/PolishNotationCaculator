@@ -2,8 +2,8 @@ from typing import Dict, Optional
 import copy
 
 
-class VariableEnviroment:
-    def __init__(self, v_map: Dict[str, int]=None, prev: 'VariableEnviroment'=None):
+class VariableEnvironment:
+    def __init__(self, v_map: Dict[str, int]=None, prev: 'VariableEnvironment'=None):
         self._map = copy.deepcopy(v_map) if v_map is not None else {}
         self._previous = prev
 
@@ -12,7 +12,7 @@ class VariableEnviroment:
         return self._map
 
     @property
-    def previous(self)->Optional['VariableEnviroment']:
+    def previous(self)->Optional['VariableEnvironment']:
         return self._previous
 
     def define(self, name: str, val: int) -> None:

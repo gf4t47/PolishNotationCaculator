@@ -4,7 +4,7 @@ import sys
 
 from attr import dataclass
 
-from src.interpreter.visitor.enviroment import VariableEnviroment
+from src.interpreter.visitor.environment import VariableEnvironment
 from src.operators import calc_op_map
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
@@ -19,17 +19,17 @@ NumberToken.terminal = NumberToken(-1)
 
 
 class StackInterpreter:
-    def __init__(self: object, binary_op: bool, env: VariableEnviroment) -> None:
+    def __init__(self: object, binary_op: bool, env: VariableEnvironment) -> None:
         self.__number_stack = []
         self._global_env = env
         self._binary_op = binary_op
 
     @property
-    def _global_env(self)-> VariableEnviroment:
+    def _global_env(self)-> VariableEnvironment:
         return self.__global_env
 
     @_global_env.setter
-    def _global_env(self, val: VariableEnviroment)->None:
+    def _global_env(self, val: VariableEnvironment)->None:
         self.__global_env = val
 
     @property
