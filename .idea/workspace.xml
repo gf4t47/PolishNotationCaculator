@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c56502ef-aab2-4ee5-b434-3a3668a5e6f0" name="Default Changelist" comment="rename project">
+      <change afterPath="$PROJECT_DIR$/sepecification.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/specification.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interpreter/parser/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interpreter/parser/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interpreter/visitor/calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interpreter/visitor/calculator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interpreter/visitor/enviroment.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interpreter/visitor/environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interpreter/visitor/node_visitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interpreter/visitor/node_visitor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stack/stack_interpreter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/stack_interpreter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/variable_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/variable_tests.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,23 +93,25 @@
         <counts>
           <entry key="dummy" value="1" />
           <entry key="gitignore" value="14" />
-          <entry key="md" value="28" />
-          <entry key="txt" value="26" />
+          <entry key="md" value="36" />
+          <entry key="txt" value="55" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="69" />
+          <entry key="Markdown" value="8" />
+          <entry key="PLAIN_TEXT" value="98" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="md" value="1" />
+          <entry key="md" value="2" />
           <entry key="py" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="3" />
         </counts>
@@ -147,18 +143,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
               <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/interpreter/parser/token_stream.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -211,7 +195,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/interpreter/visitor/calculator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="361">
@@ -219,6 +203,18 @@
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sepecification.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="587">
+                <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -252,10 +248,14 @@
       <find>logging</find>
       <find>OPERATOR</find>
       <find>assigmnet</find>
+      <find>enviroment</find>
+      <find>Enviroment</find>
     </findStrings>
     <replaceStrings>
       <replace>logging.debug(</replace>
       <replace>.debug('entry %s with %s', self.</replace>
+      <replace>environment</replace>
+      <replace>Environment</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -299,6 +299,7 @@
         <option value="$PROJECT_DIR$/src/interpreter/parser/parser.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/specification.md" />
+        <option value="$PROJECT_DIR$/sepecification.md" />
       </list>
     </option>
   </component>
@@ -390,6 +391,9 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documents\GitHub\PolishNotationCalculator" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documents\GitHub\PolishNotationCaculator\test" />
       <recent name="D:\Documents\GitHub\PolishNotationCaculator\test\parser" />
@@ -634,25 +638,17 @@
       <option name="project" value="LOCAL" />
       <updated>1534221902305</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="fix spelling error.">
+      <created>1534223725793</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1534223725793</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="corner - 2018.08.13 at 20h 29m 06s.xml">
-      <configuration name="corner" configurationId="tests" />
-    </history-entry>
-    <history-entry file="variable - 2018.08.13 at 20h 29m 13s.xml">
-      <configuration name="variable" configurationId="tests" />
-    </history-entry>
-    <history-entry file="lexer - 2018.08.13 at 20h 29m 17s.xml">
-      <configuration name="lexer" configurationId="tests" />
-    </history-entry>
-    <history-entry file="corner - 2018.08.13 at 20h 29m 22s.xml">
-      <configuration name="corner" configurationId="tests" />
-    </history-entry>
-    <history-entry file="corner - 2018.08.13 at 20h 30m 19s.xml">
-      <configuration name="corner" configurationId="tests" />
-    </history-entry>
     <history-entry file="corner - 2018.08.13 at 20h 30m 33s.xml">
       <configuration name="corner" configurationId="tests" />
     </history-entry>
@@ -667,6 +663,21 @@
     </history-entry>
     <history-entry file="corner - 2018.08.13 at 20h 31m 55s.xml">
       <configuration name="corner" configurationId="tests" />
+    </history-entry>
+    <history-entry file="variable - 2018.08.13 at 22h 13m 43s.xml">
+      <configuration name="variable" configurationId="tests" />
+    </history-entry>
+    <history-entry file="basic - 2018.08.13 at 22h 13m 50s.xml">
+      <configuration name="basic" configurationId="tests" />
+    </history-entry>
+    <history-entry file="comb - 2018.08.13 at 22h 14m 17s.xml">
+      <configuration name="comb" configurationId="tests" />
+    </history-entry>
+    <history-entry file="corner - 2018.08.13 at 22h 14m 23s.xml">
+      <configuration name="corner" configurationId="tests" />
+    </history-entry>
+    <history-entry file="variable - 2018.08.13 at 22h 14m 28s.xml">
+      <configuration name="variable" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -722,7 +733,8 @@
     <MESSAGE value="add negative number support" />
     <MESSAGE value="make assignment parser method out of class scope" />
     <MESSAGE value="rename project" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename project" />
+    <MESSAGE value="fix spelling error." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix spelling error." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/interpreter/lexer/__init__.py">
@@ -975,6 +987,16 @@
           <folding>
             <element signature="e#0#57#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sepecification.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="587">
+            <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
