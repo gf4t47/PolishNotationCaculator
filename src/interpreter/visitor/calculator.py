@@ -41,8 +41,7 @@ class Calculator(NodeVisitor):
         new_env = VariableEnviroment(prev=env)
         for p in node.preposition:
             self.visit(p, new_env)
-        result = self.visit(node.action, new_env)
-        return result
+        return self.visit(node.action, new_env)
 
     def evaluate(self):
         return self.visit(self.ast_tree, self._env)

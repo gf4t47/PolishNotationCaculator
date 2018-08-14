@@ -83,7 +83,12 @@ class StackInterpreter:
                     num_str += cur
                     index -= 1
                     cur = expression[index]
-                self._number_stack.append(NumberToken(int(num_str[::-1])))
+                if cur == '-':
+                    index -= 1
+                    num = int(num_str[::-1]) * -1
+                else:
+                    num = int(num_str[::-1])
+                self._number_stack.append(NumberToken(num))
             elif cur.isalpha():
                 var_str = ''
                 while index >= 0 and cur.isalpha():

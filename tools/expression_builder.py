@@ -18,8 +18,8 @@ def _build_binary_expression(op: str, left: (int, str), right: (int, str), enfor
 def unary_generator(inputs):
     result = []
     for it in inputs:
-        for expr in [f'{it}', f'0{it}', f'({it})', f'(00{it})']:
-                result.append((expr, it))
+        for expr in [f'{it}', f'({it})']:
+            result.append((expr, it))
     return result
 
 

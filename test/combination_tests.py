@@ -4,7 +4,7 @@ from src.main import stack_calc
 from src.main import interpreter_calc
 
 left_data = [0, 1, 10]
-right_data = [1, 343]
+right_data = [-1, 343]
 
 
 @pytest.mark.parametrize("expr, expected", ternary_generator_all_op(left_data, right_data, None))

@@ -13,9 +13,9 @@ from src.main import stack_calc
     },
 ])
 @pytest.mark.parametrize("expr, expected", [
-    ('1', 1),
-    ('+ 1 1', 2),
-    ('+ x 1', 0),
+    ('-1', -1),
+    ('+ 1 -1', 0),
+    ('+ x -1', -2),
     ('+ ya 1', 1),
     ('+ zbc 1', 2),
 ])

@@ -50,6 +50,9 @@ def test_operators(operator, expected):
 @pytest.mark.parametrize("number, expected", [
     ('001', [Token(TokenType.NUMBER, 1)]),
     ('0', [Token(TokenType.NUMBER, 0)]),
+    ('-1', [Token(TokenType.NUMBER, -1)]),
+    ('-01', [Token(TokenType.NUMBER, -1)]),
+    ('-10', [Token(TokenType.NUMBER, -10)]),
     ('0100', [Token(TokenType.NUMBER, 100)]),
     ('0 21 100', [Token(TokenType.NUMBER, 0), Token(TokenType.NUMBER, 21), Token(TokenType.NUMBER, 100)]),
 ])

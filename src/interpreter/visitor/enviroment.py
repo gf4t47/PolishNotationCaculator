@@ -25,5 +25,5 @@ class VariableEnviroment:
         if self.previous is not None:
             return self.previous.lookup(name)
 
-        raise KeyError(f'No variable {name} found in enviroment')
+        raise KeyError(f"Can't resolve variable {name}")
 

@@ -4,8 +4,8 @@ from src.main import stack_calc
 from src.main import interpreter_calc
 
 
-left_data = [0, 1, 2, 10, 2]
-right_data = [0, 1, 3, 22]
+left_data = [-1, 0, 1, 2, 10]
+right_data = [-10, 0, 1, 3, 22]
 
 
 @pytest.mark.parametrize("expr, expected", unary_generator(set(left_data + right_data)))
