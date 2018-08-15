@@ -137,21 +137,6 @@ class Parser:
 
         raise PeekableException(f'Unexpected factor token {self.current_token}')
 
-    def assignment(self)->AssignOp:
-        """
-        assigment:
-            = variable factor
-        :return:
-        """
-        logging.debug('entry %s with %s', self.assignment.__name__, self.current_token)
-        if self.current_token.type == TokenType.ASSIGN:
-            equal = self._eat(TokenType.ASSIGN)
-            var = self.variable()
-            factor = self.factor()
-            return AssignOp(equal, var, factor)
-
-        raise PeekableException(f'Unexpected assigment token {self.current_token}')
-
     def formula(self) -> CalcOp:
         """
         formula:
@@ -168,6 +153,21 @@ class Parser:
                 nodes.append(operand)
                 is_operand, operand = self._peekable_error_wrapper(self.operand)
         return _construct_calc_node(op, nodes)
+
+    def assignment(self)->AssignOp:
+        """
+        assigment:
+            = variable factor
+        :return:
+        """
+        logging.debug('entry %s with %s', self.assignment.__name__, self.current_token)
+        if self.current_token.type == TokenType.ASSIGN:
+            equal = self._eat(TokenType.ASSIGN)
+            var = self.variable()
+            factor = self.factor()
+            return AssignOp(equal, var, factor)
+
+        raise PeekableException(f'Unexpected assigment token {self.current_token}')
 
     def operand(self) -> [(FactorNode, AssignOp, CalcOp)]:
         """
