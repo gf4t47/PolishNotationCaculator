@@ -14,31 +14,31 @@ class Calculator(NodeVisitor):
         self.__env = env
 
     @property
-    def ast_tree(self):
+    def ast_tree(self)->AstNode:
         return self._ast
 
     @property
-    def _env(self):
+    def _env(self)->VariableEnvironment:
         return self.__env
 
     def visit_Num(self, node: Num, env: VariableEnvironment)->int:
         return node.value
 
-    def visit_Variable(self, node: Variable, env: VariableEnvironment)->int:
+    def visit_Variable(self, node: Variable, env: VariableEnvironment)->(int, AstNode):
         found = env.lookup(node.name)
         return found if found is not None else node
 
-    def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment):
+    def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment)->(int, AstNode):
         op = node.op
         left_val = self.visit(node.left_expr, env)
         right_val = self.visit(node.right_expr, env)
         return calc(op, left_val, right_val)
 
-    def visit_AssignOp(self, node: AssignOp, env: VariableEnvironment):
+    def visit_AssignOp(self, node: AssignOp, env: VariableEnvironment)->None:
         env.define(node.name, self.visit(node.value, env))
         return
 
-    def visit_Sequence(self, node: Sequence, env: VariableEnvironment):
+    def visit_Sequence(self, node: Sequence, env: VariableEnvironment)->(int, AstNode):
         new_env = VariableEnvironment(prev=env)
         for p in node.preposition:
             self.visit(p, new_env)
