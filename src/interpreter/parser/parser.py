@@ -17,7 +17,7 @@ class PeekableException(SyntaxError):
     pass
 
 
-def _construct_calc_node(op: Token, operands: [AstNode]):
+def _calculation_constructor(op: Token, operands: [AstNode]):
     length = len(operands)
 
     if length == 0:
@@ -25,7 +25,7 @@ def _construct_calc_node(op: Token, operands: [AstNode]):
     elif length == 1:
         return operands[0]
     else:
-        return CalcOp(op, operands[0], _construct_calc_node(op, operands[1::]))
+        return CalcOp(op, operands[0], _calculation_constructor(op, operands[1::]))
 
 
 def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwargs):
@@ -152,7 +152,7 @@ class Parser:
             while is_operand:
                 nodes.append(operand)
                 is_operand, operand = self._peekable_error_wrapper(self.operand)
-        return _construct_calc_node(op, nodes)
+        return _calculation_constructor(op, nodes)
 
     def assignment(self)->AssignOp:
         """

@@ -3,24 +3,24 @@ import copy
 
 
 class VariableEnvironment:
-    def __init__(self, v_map: Dict[str, int]=None, prev: 'VariableEnvironment'=None):
-        self._map = copy.deepcopy(v_map) if v_map is not None else {}
+    def __init__(self, dictionary: Dict[str, int]=None, prev: 'VariableEnvironment'=None):
+        self._dict = copy.deepcopy(dictionary) if dictionary is not None else {}
         self._previous = prev
 
     @property
-    def v_map(self) -> Dict[str, int]:
-        return self._map
+    def dictionary(self) -> Dict[str, int]:
+        return self._dict
 
     @property
     def previous(self)->Optional['VariableEnvironment']:
         return self._previous
 
     def define(self, name: str, val: int) -> None:
-        self.v_map[name] = val
+        self.dictionary[name] = val
 
     def lookup(self, name: str) -> Optional[int]:
-        if name in self.v_map:
-            return self.v_map[name]
+        if name in self.dictionary:
+            return self.dictionary[name]
 
         if self.previous is not None:
             return self.previous.lookup(name)

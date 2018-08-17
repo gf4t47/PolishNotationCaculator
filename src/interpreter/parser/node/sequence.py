@@ -3,15 +3,15 @@ from src.interpreter.parser.node.node import AstNode
 
 
 class Sequence(AstNode):
-    def __init__(self, preposition: [AstNode], actor: [AstNode]):
+    def __init__(self, preposition: [AstNode], actor: AstNode):
         super().__init__(operators['='])
         self._preposition = preposition
         self._actor = actor
 
     @property
-    def preposition(self):
+    def preposition(self)->[AstNode]:
         return self._preposition
 
     @property
-    def action(self):
+    def action(self)->AstNode:
         return self._actor
