@@ -33,9 +33,6 @@
         z: -1
     }
        
-    + x 1 -> 2
-    + x y -> 1
-    + x y z -> 0
     = x 10 + x x z -> 19
     = x 10 = y 10 = z 10 + x y z -> 30
 ## Variable and reassignment in scoped environment, aka variable shadowing feature
