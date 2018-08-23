@@ -49,6 +49,57 @@ def test_assignment(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize('env', [
     {
         'x': 1,
+        'y': 2,
+        'z': 3,
+    },
+])
+@pytest.mark.parametrize("expr, expected", [
+    ('= x y + x 1', 3),
+    ('= x z + x 1', 4),
+])
+@pytest.mark.parametrize("binary_op", [False, True])
+@pytest.mark.parametrize('calc', [interpreter_calc])
+def test_variable_assignment(expr, expected, binary_op, calc, env):
+    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+
+
+@pytest.mark.parametrize('env', [
+    {
+        'x': 1,
+        'y': 2,
+        'z': 3,
+    },
+])
+@pytest.mark.parametrize("expr, expected", [
+    ('= x (+ 1 -1) + x 1', 1),
+    ('= x (/ 4 2) + x 1', 3),
+])
+@pytest.mark.parametrize("binary_op", [False, True])
+@pytest.mark.parametrize('calc', [interpreter_calc])
+def test_expr_assignment(expr, expected, binary_op, calc, env):
+    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+
+
+@pytest.mark.parametrize('env', [
+    {
+        'x': 1,
+        'y': 2,
+        'z': 3,
+    },
+])
+@pytest.mark.parametrize("expr, expected", [
+    ('= y 10 = x (+ 1 y) (+ x 1)', 12),
+    ('= x (/ 4 z) + x 1', 2),
+])
+@pytest.mark.parametrize("binary_op", [False, True])
+@pytest.mark.parametrize('calc', [interpreter_calc])
+def test_var_expr_assignment(expr, expected, binary_op, calc, env):
+    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+
+
+@pytest.mark.parametrize('env', [
+    {
+        'x': 1,
         'y': 1,
         'z': 1,
     },
@@ -65,5 +116,5 @@ def test_assignment(expr, expected, binary_op, calc, env):
 ])
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
-def test_scoped(expr, expected, binary_op, calc, env):
+def test_scoped_assignment(expr, expected, binary_op, calc, env):
     assert expected == calc(expr, binary_op, VariableEnvironment(env))

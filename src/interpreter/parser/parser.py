@@ -157,14 +157,14 @@ class Parser:
     def assignment(self)->AssignOp:
         """
         assigment:
-            = variable factor
+            = variable operand
         :return:
         """
         logging.debug('entry %s with %s', self.assignment.__name__, self.current_token)
         if self.current_token.type == TokenType.ASSIGN:
             equal = self._eat(TokenType.ASSIGN)
             var = self.variable()
-            factor = self.factor()
+            factor = self.operand()
             return AssignOp(equal, var, factor)
 
         raise PeekableException(f'Unexpected assigment token {self.current_token}')

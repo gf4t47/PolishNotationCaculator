@@ -26,7 +26,7 @@
     + x 1 -> 2
     + x y -> 1
     + x y z -> 0
-## Variable and reassignment in global environment
+## Variable and reassignment as number in global environment
 	predefined env: {
         x: 1,
         y: 0,
@@ -35,6 +35,30 @@
        
     = x 10 + x x z -> 19
     = x 10 = y 10 = z 10 + x y z -> 30
+## Variable and reassignment as variable in global environment
+	predefined env: {
+        x: 1,
+        y: 0,
+        z: -1
+    }
+       
+    = x y + x x z -> -1
+## Variable and reassignment as expression in global environment
+	predefined env: {
+        x: 1,
+        y: 0,
+        z: -1
+    }
+       
+    = x (/ 4 2) + x x z -> 3
+## Variable and reassignment as expression with variable in global environment
+	predefined env: {
+        x: 1,
+        y: 0,
+        z: -1
+    }
+       
+    = x (/ y 2) + x x z -> -1            
 ## Variable and reassignment in scoped environment, aka variable shadowing feature
 	predefined env: {
         x: 1,
