@@ -36,7 +36,6 @@ class Calculator(NodeVisitor):
 
     def visit_AssignOp(self, node: AssignOp, env: VariableEnvironment)->None:
         env.define(node.name, self.visit(node.value, env))
-        return
 
     def visit_Sequence(self, node: Sequence, env: VariableEnvironment)->(int, AstNode):
         new_env = VariableEnvironment(prev=env)
