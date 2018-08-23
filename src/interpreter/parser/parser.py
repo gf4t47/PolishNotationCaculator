@@ -17,7 +17,7 @@ class PeekableException(SyntaxError):
     pass
 
 
-def _calculation_constructor(op: Token, operands: [AstNode]):
+def _calculation_constructor(op: Token, operands: [AstNode])->CalcOp:
     length = len(operands)
 
     if length == 0:
@@ -28,7 +28,7 @@ def _calculation_constructor(op: Token, operands: [AstNode]):
         return CalcOp(op, operands[0], _calculation_constructor(op, operands[1::]))
 
 
-def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwargs):
+def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwargs)->Sequence:
     """
     adding current assignment into variable environment
     :param assignments: a list of assignments
@@ -40,7 +40,7 @@ def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwarg
 
 
 class Parser:
-    def __init__(self, tokens: TokenStream, binary_op: bool):
+    def __init__(self, tokens: TokenStream, binary_op: bool)->None:
         self._token_streams = tokens
         self.current_token = self._token_streams.next_token()
         self._binary_op = binary_op
@@ -85,7 +85,7 @@ class Parser:
             self._vomit(token, index)
             return False, e
 
-    def _vomit(self, token: Token, index: int):
+    def _vomit(self, token: Token, index: int)-> None:
         self.current_token = token
         self._token_streams.reset(index)
 
