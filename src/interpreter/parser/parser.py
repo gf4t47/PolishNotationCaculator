@@ -107,7 +107,7 @@ class Parser:
             Token.TokenType == VARIABLE
         :return:
         """
-        _log('entry %s with %s', self.variable.__name__, self.current_token)
+        _log(f"entry {self.variable.__name__} with {self.current_token}")
         if self.current_token.type != TokenType.VARIABLE:
             raise PeekableException(f'Unexpected number token {self.current_token}')
 
@@ -119,7 +119,7 @@ class Parser:
             Token.TokenType == NUMBER
         :return: Num
         """
-        _log('entry %s with %s', self.number.__name__, self.current_token)
+        _log(f"entry {self.number.__name__} with {self.current_token}")
         if self.current_token.type != TokenType.NUMBER:
             raise PeekableException(f'Unexpected number token {self.current_token}')
 
@@ -132,7 +132,7 @@ class Parser:
             | variable
         :return: FactoryNode
         """
-        _log('entry %s with %s', self.factor.__name__, self.current_token)
+        _log(f"entry {self.factor.__name__} with {self.current_token}")
         if self.current_token.type == TokenType.NUMBER:
             return self.number()
 
@@ -148,7 +148,7 @@ class Parser:
             | OP operand operand (operand)*    # if self.binary_op is False
         :return: BinaryOp
         """
-        _log('entry %s with %s', self.formula.__name__, self.current_token)
+        _log(f"entry {self.formula.__name__} with {self.current_token}")
         op = self._eat(TokenType.CALCULATOR)
         nodes = [self.operand(), self.operand()]
         if self.binary_op is False:
@@ -164,7 +164,7 @@ class Parser:
             = variable operand
         :return:
         """
-        _log('entry %s with %s', self.assignment.__name__, self.current_token)
+        _log(f"entry {self.assignment.__name__} with {self.current_token}")
         if self.current_token.type == TokenType.ASSIGN:
             equal = self._eat(TokenType.ASSIGN)
             var = self.variable()
@@ -182,7 +182,7 @@ class Parser:
             | factor
         :return: factor node or formula node
         """
-        _log('entry %s with %s', self.operand.__name__, self.current_token)
+        _log(f"entry {self.operand.__name__} with {self.current_token}")
         if self.current_token.type == TokenType.BRACKET and self.current_token.value is True:
             return self._bracket_stripper(self.operand)
         elif self.current_token.type == TokenType.ASSIGN:
@@ -194,7 +194,7 @@ class Parser:
         return self.formula() if self.current_token.type == TokenType.CALCULATOR else self.factor()
 
     def parse(self)->AstNode:
-        _log('entry %s with %s', self.parse.__name__, self.current_token)
+        _log(f"entry {self.parse.__name__} with {self.current_token}")
         node = self.operand()
 
         if self.current_token.type != TokenType.EOF:
