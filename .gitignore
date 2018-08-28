@@ -1,4 +1,2 @@
-/test/**/.*_cache/
-/.idea/workspace.xml
-/.idea/misc.xml
-/.idea/PolishNotationCalculator.iml
+\test\**\/.*_cache/
+\**/.idea/
