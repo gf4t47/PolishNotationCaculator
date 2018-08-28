@@ -1,2 +1,2 @@
-\test\**\/.*_cache/
-\**/.idea/
+/test/**/\.*_cache/
+/\.idea/
