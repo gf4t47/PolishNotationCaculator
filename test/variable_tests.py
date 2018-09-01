@@ -1,6 +1,5 @@
 import pytest
 
-from src.interpreter.visitor.environment import VariableEnvironment
 from src.main import interpreter_calc
 from src.main import stack_calc
 
@@ -22,7 +21,7 @@ from src.main import stack_calc
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [stack_calc, interpreter_calc])
 def test_variable(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -46,7 +45,7 @@ def test_variable(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [stack_calc, interpreter_calc])
 def test_variable_case(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -68,7 +67,7 @@ def test_variable_case(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
 def test_assignment(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -85,7 +84,7 @@ def test_assignment(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
 def test_variable_assignment(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -102,7 +101,7 @@ def test_variable_assignment(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
 def test_expr_assignment(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -119,7 +118,7 @@ def test_expr_assignment(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
 def test_var_expr_assignment(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -142,7 +141,7 @@ def test_var_expr_assignment(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
 def test_scoped_assignment(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)
 
 
 @pytest.mark.parametrize('env', [
@@ -158,4 +157,4 @@ def test_scoped_assignment(expr, expected, binary_op, calc, env):
 @pytest.mark.parametrize("binary_op", [False, True])
 @pytest.mark.parametrize('calc', [interpreter_calc])
 def test_scoped_self_assignment(expr, expected, binary_op, calc, env):
-    assert expected == calc(expr, binary_op, VariableEnvironment(env))
+    assert expected == calc(expr, binary_op, env)

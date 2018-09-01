@@ -1,3 +1,5 @@
+from typing import Dict
+
 from src.interpreter.visitor.environment import VariableEnvironment
 from src.interpreter.visitor.calculator import Calculator
 from src.interpreter.input.string_stream import MovableStream
@@ -8,7 +10,7 @@ from src.interpreter.parser.parser import Parser
 from src.stack.stack_interpreter import StackInterpreter
 
 
-def stack_calc(expression: str, binary_op: bool, env: VariableEnvironment=None) -> int:
+def stack_calc(expression: str, binary_op: bool, env: Dict[str, int] = None) -> int:
     """
     :param env: global variable environment
     :type binary_op: bool
@@ -18,10 +20,10 @@ def stack_calc(expression: str, binary_op: bool, env: VariableEnvironment=None) 
     :rtype: int
     :return: evaluated value for the input expression
     """
-    return StackInterpreter(binary_op, env if env is not None else VariableEnvironment()).evaluate(expression)
+    return StackInterpreter(binary_op, VariableEnvironment(env) if env is not None else VariableEnvironment()).evaluate(expression)
 
 
-def interpreter_calc(expression: str, free_op: bool, env: VariableEnvironment=None) -> int:
+def interpreter_calc(expression: str, free_op: bool, env: Dict[str, int] = None) -> int:
     """
     :param env: global variable environment
     :type free_op: bool
@@ -36,5 +38,5 @@ def interpreter_calc(expression: str, free_op: bool, env: VariableEnvironment=No
     tokens = TokenStream(lexer)
     parser = Parser(tokens, free_op)
     ast = parser.parse()
-    calculator = Calculator(ast, env if env is not None else VariableEnvironment())
+    calculator = Calculator(ast, VariableEnvironment(env) if env is not None else VariableEnvironment())
     return calculator.evaluate()

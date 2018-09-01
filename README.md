@@ -2,7 +2,7 @@
 ## Description
 You will implement a polish notation calculator, signature as:
 ```python
-def calculate(expression: str, env: dict[str, int]) -> int
+def calculate(expression: str, env: Dict[str, int]) -> int
 eg:
     calculate("/ (* (+ 1 1 1) (- 4 2)) 4", {}) -> 1
 ```
@@ -16,7 +16,7 @@ You calculator should support the below features as much as possible, the featur
 4. redundant brackets `((+ (((1))) 1)) -> 2` `(((2))) -> 2`
 5. predefined global variables:
     ``` python
-    def calculate(expression: str, env: dict[str, int]) -> int
+    def calculate(expression: str, env: Dict[str, int]) -> int
     eg:
         env = { "x": 1, "y": 0 }
 
