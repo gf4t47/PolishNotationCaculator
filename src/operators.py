@@ -16,7 +16,7 @@ def simplify(op: Token, node: AstNode, val: int):
     pass
 
 
-def calc(op: Token, left: (int, AstNode), right: (int, AstNode)) -> (int, AstNode):
+def calc_node(op: Token, left: (int, AstNode), right: (int, AstNode)) -> (int, AstNode):
     if type(left) is int and type(right) is int:
         return calc_op_map[op.value](left, right)
     elif isinstance(left, AstNode) and isinstance(right, AstNode):

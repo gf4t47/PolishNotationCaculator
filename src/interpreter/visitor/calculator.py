@@ -1,10 +1,10 @@
+from src.operators import calc_op_map
 from src.interpreter.parser.node.sequence import Sequence
 from src.interpreter.parser.node.node import AstNode
 from src.interpreter.parser.node.binary import CalcOp, AssignOp
 from src.interpreter.parser.node.factory import Num, Variable
 from src.interpreter.visitor.environment import VariableEnvironment
 from src.interpreter.visitor.node_visitor import NodeVisitor
-from src.operators import calc
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
@@ -24,15 +24,17 @@ class Calculator(NodeVisitor):
     def visit_Num(self, node: Num, env: VariableEnvironment)->int:
         return node.value
 
-    def visit_Variable(self, node: Variable, env: VariableEnvironment)->(int, AstNode):
+    def visit_Variable(self, node: Variable, env: VariableEnvironment)->int:
         found = env.lookup(node.name)
-        return found if found is not None else node
+        if found is None:
+            raise KeyError(f"Unresolved variable {node.name}")
+        return found
 
-    def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment)->(int, AstNode):
+    def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment)->int:
         op = node.op
         left_val = self.visit(node.left_expr, env)
         right_val = self.visit(node.right_expr, env)
-        return calc(op, left_val, right_val)
+        return calc_op_map[op.value](left_val, right_val)
 
     def visit_AssignOp(self, node: AssignOp, env: VariableEnvironment)->None:
         env.define(node.name, self.visit(node.value, env))
