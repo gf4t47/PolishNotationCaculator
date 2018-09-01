@@ -23,11 +23,11 @@ def stack_calc(expression: str, binary_op: bool, env: Dict[str, int] = None) -> 
     return StackInterpreter(binary_op, VariableEnvironment(env) if env is not None else VariableEnvironment()).evaluate(expression)
 
 
-def interpreter_calc(expression: str, free_op: bool, env: Dict[str, int] = None) -> int:
+def interpreter_calc(expression: str, binary_op: bool, env: Dict[str, int] = None) -> int:
     """
     :param env: global variable environment
-    :type free_op: bool
-    :param free_op: indicate whether the calculator support free operator (operator can operate operands number larger than 2)
+    :type binary_op: bool
+    :param binary_op: indicate whether the calculator support free operator (operator can operate operands number larger than 2)
     :type expression: str
     :param expression: input expression
     :rtype: int
@@ -36,7 +36,7 @@ def interpreter_calc(expression: str, free_op: bool, env: Dict[str, int] = None)
     string = MovableStream(expression)
     lexer = Lexer(string)
     tokens = TokenStream(lexer)
-    parser = Parser(tokens, free_op)
+    parser = Parser(tokens, binary_op)
     ast = parser.parse()
     calculator = Calculator(ast, VariableEnvironment(env) if env is not None else VariableEnvironment())
     return calculator.evaluate()

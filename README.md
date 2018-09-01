@@ -10,7 +10,7 @@ NOTICE that "/" stands for integer division
 
 ## Features
 You calculator should support the below features as much as possible, the feature list is in difficulty increased order.
-1. single numbers `1 -> 1`
+1. single numbers `1 -> 1`, only support single factor, operator must operate on at least tow operands
 2. binary operands `+ 1 1 -> 2`
 3. multiple operands `+ 1 1 1 1 -> 4`
 4. redundant brackets `((+ (((1))) 1)) -> 2` `(((2))) -> 2`
@@ -64,10 +64,9 @@ You calculator should support the below features as much as possible, the featur
     env: { x: 1, y: 0, z: -1 }
     + x ( = x (+ x 1) x ) -> 3
     ```
-13. handle unresolved variable, return a simplified version of expression(string) if there is variable can't be resolved:
+13. handle unresolved variable, return a simplified version of expression(string) if there are variables can't be resolved:
     ```
     env: { x: 1, y: 0, z: -1 }
     + (+ x 1) (+ a 1) -> + a 3 | + 3 a
     ```
-
 We are not leetcode, you don't have to implement all those features to get scored, try your best :)
