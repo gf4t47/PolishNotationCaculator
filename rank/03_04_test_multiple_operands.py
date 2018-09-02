@@ -33,3 +33,37 @@ def test_multiple_operands(expr, expected):
 @pytest.mark.parametrize("expr, expected", [(f'((({expr})))', ret) for expr, ret in multiple_generator_all_op(list(set(left_data + right_data)), None)])
 def test_multiple_operands(expr, expected):
     assert expected == calculate(expr)
+
+
+@pytest.mark.parametrize("expr, expected", [
+    ('1', 1),
+    ('( 1 )', 1),
+    ('(( 1 ))', 1),
+    ('+ 1 1', 2),
+    ('( + 1 1 )', 2),
+    ('+ 1 1 1', 3),
+    ('( + 1 1 1 )', 3),
+    ('+ 1 ( + 1 1 1 )', 4),
+    ('(((( + 1 ( + 1 1 1 )))))', 4),
+    ('+ 1 ( + 1 1 1 ) 1 1', 6),
+    ('+ 1 ( + 1 1 1 ) (- 1 1) 1 1', 6),
+    ('(((( + 1 ( + 1 (( + (1) 1 ))) 1))))', 5),
+])
+def test_multiple_operands_with_bracket(expr, expected):
+    assert expected == calculate(expr)
+
+
+@pytest.mark.parametrize("expr, expected", [
+    ('1', 1),
+    ('( 1 )', 1),
+    ('(( 1 ))', 1),
+    ('+ 1 1', 2),
+    ('( + 1 1 )', 2),
+    ('+ (+ 1 1) 1', 3),
+    ('+ 1 (+ 1 1)', 3),
+    ('(+ (+ 1 1) (+ 1 1) )', 4),
+    ('(+ (((+ 1 1))) (+ (1) 1) )', 4),
+    ('(+ (+ (+ 1 1) (+ 1 1) ) (+ 1 1))', 6),
+])
+def test_binary_operands_with_bracket(expr, expected):
+    assert expected == calculate(expr)
