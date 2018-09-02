@@ -23,7 +23,7 @@ You calculator should support the below features as much as possible, the featur
         calculate("y", env) -> 0
         calculate("+ x y", env) -> 1
     ```
-6. variable symbol could be multiple characters in alphabet, case sensitive:
+6. variable syntax is multiple characters in alphabet, case sensitive:
     ```
     env: { "IamAlongVariable": 1, "iamalongvariable": -1 }
     + IamAlongVariable 1 -> 2
