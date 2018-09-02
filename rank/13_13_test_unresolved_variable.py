@@ -1,7 +1,6 @@
 import pytest
 
 from src.index import calculate
-from src.main import interpreter_calc
 
 
 @pytest.mark.parametrize('env', [
@@ -16,7 +15,7 @@ from src.main import interpreter_calc
     ('b', 'b'),
     ('c', 'c'),
 ])
-def test_simplified_expr_is_alterable(expr, env, expected):
+def test_simplified_expr_is_determined(expr, env, expected):
     actual = calculate(expr, env)
     assert isinstance(actual, str)
     assert expected == actual
@@ -36,14 +35,18 @@ def test_simplified_expr_is_alterable(expr, env, expected):
         'c': -1
     }
 ])
-@pytest.mark.parametrize("expr", [
-    '+ x y a 3',
-    '+ (+ x a) (+ y b)'
-    '+ (+ x a) (+ y b) (+ z c)'
+@pytest.mark.parametrize("expr, expected", [
+    ('+ x y a 3', 5),
+    ('+ (+ x a) (+ y b)', 2),
+    ('+ (+ x a) (+ y b) (+ z c)', 0)
 ])
-def test_simplified_expr_is_alterable(expr, open_env, hidden_env):
-    expected = interpreter_calc(expr, False, {**open_env, **hidden_env})
-    simplified = calculate(expr, open_env)
-    assert isinstance(simplified, str)
-    actual = calculate(simplified, hidden_env)
-    assert expected == actual
+def test_simplified_expr_is_alterable(expr, open_env, hidden_env, expected):
+    number_ret = calculate(expr, {**open_env, **hidden_env})
+    assert isinstance(expected, int)
+    assert expected == number_ret
+
+    expr_ret = calculate(expr, open_env)
+    assert isinstance(expr_ret, str)
+
+    final_ret = calculate(expr_ret, hidden_env)
+    assert expected == final_ret
