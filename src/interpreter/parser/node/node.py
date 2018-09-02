@@ -12,3 +12,12 @@ class AstNode:
     @property
     def type(self)-> TokenType:
         return self.token.type
+
+
+class OpNode(AstNode):
+    def __init__(self, op: Token):
+        super().__init__(op)
+
+    @property
+    def op(self)-> Token:
+        return self.token

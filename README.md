@@ -13,7 +13,7 @@ You calculator should support the below features as much as possible, the featur
 1. single numbers `1 -> 1`, only support single factor, operator must operate on at least tow operands
 2. binary operands `+ 1 1 -> 2`
 3. multiple operands `+ 1 1 1 1 -> 4`
-4. redundant brackets `((+ (((1))) 1)) -> 2` `(((2))) -> 2`
+4. redundant brackets `((+ (((1))) 1)) -> 2`, `(((2))) -> 2`
 5. predefined global variables:
     ``` python
     def calculate(expression: str, env: Dict[str, int]) -> int

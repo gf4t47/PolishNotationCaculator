@@ -1,4 +1,4 @@
-from src.interpreter.parser.node.binary import CalcOp
+from src.interpreter.parser.node.binary import CalcBinary
 from src.interpreter.parser.node.factory import Variable
 from src.interpreter.parser.node.node import AstNode
 from src.interpreter.visitor.environment import VariableEnvironment
@@ -11,7 +11,7 @@ class Simplifier(Calculator):
         found = env.lookup(node.name)
         return found if found is not None else node
 
-    def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment) -> (int, AstNode):
+    def visit_CalcOp(self, node: CalcBinary, env: VariableEnvironment) -> (int, AstNode):
         op = node.op
         left_node = self.visit(node.left_expr, env)
         right_node = self.visit(node.right_expr, env)

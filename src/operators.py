@@ -1,6 +1,6 @@
 import operator
 
-from src.interpreter.parser.node.binary import CalcOp
+from src.interpreter.parser.node.binary import CalcBinary
 from src.interpreter.lexer.token import Token
 from src.interpreter.parser.node.node import AstNode
 
@@ -20,7 +20,7 @@ def calc_node(op: Token, left: (int, AstNode), right: (int, AstNode)) -> (int, A
     if type(left) is int and type(right) is int:
         return calc_op_map[op.value](left, right)
     elif isinstance(left, AstNode) and isinstance(right, AstNode):
-        return CalcOp(op, left, right)
+        return CalcBinary(op, left, right)
     elif type(left) is int:
         pass
     elif type(right) is int:

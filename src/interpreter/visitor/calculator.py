@@ -1,7 +1,9 @@
+import functools
+
 from src.operators import calc_op_map
-from src.interpreter.parser.node.sequence import Sequence
+from src.interpreter.parser.node.sequence import Sequence, CalcMultiple
 from src.interpreter.parser.node.node import AstNode
-from src.interpreter.parser.node.binary import CalcOp, AssignOp
+from src.interpreter.parser.node.binary import CalcBinary, AssignOp
 from src.interpreter.parser.node.factory import Num, Variable
 from src.interpreter.visitor.environment import VariableEnvironment
 from src.interpreter.visitor.node_visitor import NodeVisitor
@@ -30,11 +32,17 @@ class Calculator(NodeVisitor):
             raise KeyError(f"Unresolved variable {node.name}")
         return found
 
-    def visit_CalcOp(self, node: CalcOp, env: VariableEnvironment)->int:
+    def visit_CalcBinary(self, node: CalcBinary, env: VariableEnvironment)->int:
         op = node.op
         left_val = self.visit(node.left_expr, env)
         right_val = self.visit(node.right_expr, env)
         return calc_op_map[op.value](left_val, right_val)
+
+    def visit_CalcMultiple(self, node: CalcMultiple, env: VariableEnvironment)->int:
+        op = node.op
+        operands = [self.visit(node, env) for node in node.operands]
+        calculated = functools.reduce(calc_op_map[op.value], operands)
+        return calculated
 
     def visit_AssignOp(self, node: AssignOp, env: VariableEnvironment)->None:
         env.define(node.name, self.visit(node.value, env))

@@ -8,7 +8,7 @@ left_data = [-1, 0, 1, 2, 10]
 right_data = [-10, 0, 1, 3, 22]
 
 
-@pytest.mark.parametrize("expr, expected", unary_generator(set(left_data + right_data)))
+@pytest.mark.parametrize("expr, expected", unary_generator(list(set(left_data + right_data)), None))
 @pytest.mark.parametrize("binary_op", [True, False])
 @pytest.mark.parametrize("calc", [stack_calc, interpreter_calc])
 def test_unary(expr, expected, binary_op, calc):

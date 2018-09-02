@@ -1,10 +1,6 @@
 import pytest
-from typing import Dict
 
-
-# noinspection PyUnusedLocal
-def calculate(expression: str, env: Dict[str, int] = None)-> int:
-    pass
+from index import calculate
 
 
 @pytest.mark.parametrize("expr, expected", [

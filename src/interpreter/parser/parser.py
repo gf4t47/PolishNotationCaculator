@@ -3,10 +3,10 @@ import sys
 from typing import Tuple, Callable, Union
 
 from src.interpreter.lexer.token import TokenType, Token
-from src.interpreter.parser.node.binary import CalcOp, AssignOp
+from src.interpreter.parser.node.binary import CalcBinary, AssignOp
 from src.interpreter.parser.node.factory import FactorNode, Num, Variable
-from src.interpreter.parser.node.node import AstNode
-from src.interpreter.parser.node.sequence import Sequence
+from src.interpreter.parser.node.node import AstNode, OpNode
+from src.interpreter.parser.node.sequence import Sequence, CalcMultiple
 from src.interpreter.parser.token_stream import TokenStream
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -21,15 +21,17 @@ class PeekableException(SyntaxError):
     pass
 
 
-def _calculation_constructor(op: Token, operands: [AstNode])->CalcOp:
+def _calculation_constructor(op: Token, operands: [AstNode])->OpNode:
     length = len(operands)
 
     if length == 0:
         raise ValueError("Can't construct binary node with zero operands")
     elif length == 1:
         return operands[0]
+    elif length == 2:
+        return CalcBinary(op, operands[0], operands[1])
     else:
-        return CalcOp(op, operands[0], _calculation_constructor(op, operands[1::]))
+        return CalcMultiple(op, operands)
 
 
 def _assignment_joiner(assignments: [AssignOp], action: Callable, *argv, **kwargs)->Sequence:
@@ -141,7 +143,7 @@ class Parser:
 
         raise PeekableException(f'Unexpected factor token {self.current_token}')
 
-    def formula(self) -> CalcOp:
+    def formula(self) -> OpNode:
         """
         formula:
             OP operand operand                 # if self.binary_op is True
@@ -173,7 +175,7 @@ class Parser:
 
         raise PeekableException(f'Unexpected assigment token {self.current_token}')
 
-    def operand(self) -> [(FactorNode, AssignOp, CalcOp)]:
+    def operand(self) -> [(FactorNode, AssignOp, CalcBinary)]:
         """
         operand:
             LPAREN operand RPAREN
