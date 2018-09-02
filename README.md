@@ -28,7 +28,7 @@ You calculator should support the below features as much as possible, the featur
     env: { "IamAlongVariable": 1, "iamalongvariable": -1 }
     + IamAlongVariable 1 -> 2
     ```
-7. variable reassignment, "= var val" could be used to as reassignment statement, it's always a binary expression:
+7. variable reassignment, "= var val" could be used to as reassignment statement, it's always a binary expression and always before real calculate expression or standalone:
     ```
     env: { "x": 1, "y": 1 }
     = x -1 + x y -> 0
