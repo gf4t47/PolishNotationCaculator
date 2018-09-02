@@ -104,5 +104,14 @@ def test_assign_with_variable_expression(expr, env, expected):
     ('= z 3 z', 3),
     ('= x 1 = y 2 = z 3 + x y z', 6),
 ])
-def test_no_env_assignment_cover_every_variable(expr, expected):
+def test_no_env_while_assignment_cover_every_variable(expr, expected):
+    assert expected == calculate(expr)
+
+
+@pytest.mark.parametrize("expr, expected", [
+    ('= x 1 (= y 2 (= z 3 + x y z))', 6),
+    ('= x 1 (= y 2 + (= z 3 + x y z) 1)', 7),
+    ('= x 1 + (= y 2 + (= z 3 + x y z) 1) 1', 8),
+])
+def test_assignment_calculation_in_different_scope(expr, expected):
     assert expected == calculate(expr)
