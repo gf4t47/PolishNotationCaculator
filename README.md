@@ -4,7 +4,7 @@ You will implement a polish notation calculator, signature as:
 ```python
 def calculate(expression: str, env: Dict[str, int]) -> int
 eg:
-    calculate("/ (* (+ 1 1 1) (- 4 2)) 4", {}) -> 1
+    assert 1 == calculate("/ (* (+ 1 1 1) (- 4 2)) 4", {})
 ```
 NOTICE that "/" stands for integer division
 
@@ -20,8 +20,8 @@ You calculator should support the below features as much as possible, the featur
     eg:
         env = { "x": 1, "y": 0 }
 
-        calculate("y", env) -> 0
-        calculate("+ x y", env) -> 1
+        assert 0 == calculate("y", env)
+        assert 1 == calculate("+ x y", env)
     ```
 6. variable syntax is multiple characters in alphabet, case sensitive:
     ```
