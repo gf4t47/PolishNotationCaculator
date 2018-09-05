@@ -1,7 +1,7 @@
 import pytest
 
 from tools.expression_builder import unary_generator, binary_generator_all_op, multiple_generator_all_op
-from index import calculate
+from src.index import calculate
 
 
 left_data = [-1, 0, 1]

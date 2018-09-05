@@ -1,6 +1,6 @@
 import pytest
 
-from index import calculate
+from src.index import calculate
 from tools.expression_builder import unary_generator, ternary_generator_all_op, binary_generator_all_op
 
 left_data = [-1, 0, 1, 2, 10]
