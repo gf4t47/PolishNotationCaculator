@@ -7,7 +7,8 @@ eg:
     assert 1 == calculate("/ (* (+ 1 1 1) (- 4 2)) 4", {})
 ```
 NOTICE that "/" stands for integer division
-
+## Example
+There is a [sample_tests.py] as sample unit test cases to show what is the expectation for your implementation.
 ## Features
 You calculator should support the below features as much as possible, the feature list is in difficulty increased order.
 1. single numbers `1 -> 1`, only support single factor, operator must operate on at least tow operands
