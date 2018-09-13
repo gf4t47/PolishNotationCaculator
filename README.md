@@ -3,6 +3,13 @@
 You will implement a polish notation calculator, signature as:
 ```python
 def calculate(expression: str, env: Dict[str, int]) -> int
+    """
+    :param expression: input expression
+    :param env: global variable environment
+    :return: evaluated value for the input expression
+    """
+    pass
+
 eg:
     assert 1 == calculate("/ (* (+ 1 1 1) (- 4 2)) 4", {})
 ```
@@ -18,6 +25,13 @@ You calculator should support the below features as much as possible, the featur
 5. predefined global variables:
     ``` python
     def calculate(expression: str, env: Dict[str, int]) -> int
+        """
+        :param expression: input expression
+        :param env: global variable environment
+        :return: evaluated value for the input expression
+        """
+        pass
+
     eg:
         env = { "x": 1, "y": 0 }
 
