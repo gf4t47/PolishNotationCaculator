@@ -6,6 +6,7 @@ from src.interpreter.visitor.calculator import Calculator
 from src.operators import calc_node
 
 
+# noinspection PyPep8Naming
 class Simplifier(Calculator):
     def visit_Variable(self, node: Variable, env: VariableEnvironment) -> (int, AstNode):
         found = env.lookup(node.name)

@@ -162,7 +162,7 @@ class Parser:
 
     def assignment(self)->AssignOp:
         """
-        assigment:
+        assignment:
             = variable operand
         :return:
         """
@@ -170,10 +170,10 @@ class Parser:
         if self.current_token.type == TokenType.ASSIGN:
             equal = self._eat(TokenType.ASSIGN)
             var = self.variable()
-            factor = self.operand()
-            return AssignOp(equal, var, factor)
+            operand = self.operand()
+            return AssignOp(equal, var, operand)
 
-        raise PeekableException(f'Unexpected assigment token {self.current_token}')
+        raise PeekableException(f'Unexpected assignment token {self.current_token}')
 
     def operand(self) -> [(FactorNode, AssignOp, CalcBinary)]:
         """
